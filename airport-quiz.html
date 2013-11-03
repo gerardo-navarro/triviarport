@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+  html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+</style>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">
+</script>
+
+</head>
+
+<body>
+<input id="answer" type="text" style="z-index: 1000; position: absolute; top: 80%; left: 25%; width: 45%; height: 30px; font-size: 20px;"></input>
+<input type="submit" value="Go ..." style="z-index: 1000; position: absolute; top: 80%; left: 70%; width: 5%; height: 30px; font-size: 20px;" onclick="check();"></input>
+<div id="googleMap" style="width:100%; height:100%;"></div>
+
+
+<script>
+  function initialize()
+  {
+    var mapProp = {
+      center: new google.maps.LatLng(37.6191050,-122.3752372),
+      zoom: 14,
+      disableDefaultUI: true,
+      mapTypeId: google.maps.MapTypeId.SATELLITE
+    };
+    
+    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+  }
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+  function check() {
+    // alert(document.getElementById("answer").value);
+
+    var answer = document.getElementById("answer").value;
+    if (answer == "SFO" || answer == "San Francisco" || answer == "sfo") {
+      alert("Nice work!!!");
+    } else {
+      alert("Sorry, that's wrong. Try again!!!");
+    }
+  }
+
+</script>
+</body>
+</html>

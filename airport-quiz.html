@@ -2,131 +2,75 @@
 <html>
 <head>
 
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Landing at</title>
+  <meta name="description" content="{{ page.description }}">
+  <meta name="viewport" content="width=device-width">
+  <meta name="author" content="Gerardo Navarro Suarez">
+  <!-- <link rel="icon" href="{% asset_path favicon.ico %}" type="image/x-icon"> -->
+  <!-- <link rel="apple-touch-icon" href="{% asset_path favicon.ico %}" type="image/png"> -->
+  
 
   <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+  <!-- Optional theme -->
+  <!-- <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css"> -->
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <!-- // <script src="bootstrap/js/bootstrap.min.js"></script> -->
 
-<style type="text/css">
-  html, body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-</style>
-
+  <link rel="stylesheet" type="text/css" href="css/app.css">
+    
+  <script src="js/lib/google_maps_v3.js"></script>
+  <script src="js/lib/fuse.min.js"></script>
+  <script src="js/lib/string_score.min.js"></script>
+  <script src="js/app.js"></script>
 </head>
 
+
 <body>
-  
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Triviarport</a>
-    </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <p class="navbar-text navbar-left">Do you know this airport?</a></p>
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" id="answer" placeholder="Hit Enter &hellip;">
-        </div>
-        <button type="submit" class="btn btn-default" onclick="check();">Submit</button>
-      </form>
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Triviarport</a>
+      </div>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">About me</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <p class="navbar-text navbar-left">Do you know this airport?</a></p>
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" id="answer" placeholder="Hit Enter &hellip;" data-keyboard="false">
+          </div>
+          <a type="button" class="btn btn-default" onclick="check();" href="#">Check!</a>
+        </form>
 
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-info-sign"></span> INFO <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">About me</a></li>
+              <li><a href="#">Like Facebook</a></li>
+              <li><a href="#">Feedback</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
 
-<div id="googleMap" style="width:100%; height:100%;"></div>
+  <!-- <div class="row"> -->
+    <!-- <div class="alert alert-success" role="alert" style="position:absolute; top: 100px; z-index: 1000;"> -->
+      <!-- Well done! You successfully read this important alert message. -->
+    <!-- </div> -->
+  <!-- </div> -->
 
+  <div id="googleMap" style="width:100%; height:100%;"></div>
 
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">
-</script>
-
-<script>
-
-  var zoomFluid, zoomCoords, map;   //shared variables
-
-  function initialize() {
-
-    zoomCoords = new google.maps.LatLng(37.6191050, -122.3752372);
-    zoomFluid = 15;
-    var mapProp = {
-      center: zoomCoords,
-      zoom: zoomFluid, // should depend on the screen size
-      disableDefaultUI: true,
-      mapTypeId: google.maps.MapTypeId.SATELLITE,
-      // Disable all user interaction ...
-      draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true
-    };
-      
-    map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
-    var populationOptions = {
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '#FF0000',
-      fillOpacity: 0.0,
-      map: map,
-      center: new google.maps.LatLng(37.6191050, -122.3752372),
-      radius: 1000
-    };
-    // Add the circle for this city to the map.
-    cityCircle = new google.maps.Circle(populationOptions);
-
-    setTimeout("zoomTo()", 5000);
-
-  }
-
-  google.maps.event.addDomListener(window, 'load', initialize);
-
-  
-
-  //  increases zoomFluid value at 1/2  second intervals
-  function zoomTo() {
-    
-    // console.log(zoomFluid);
-    if (zoomFluid > 3) {
-      zoomFluid --;
-      map.setZoom(zoomFluid);
-      setTimeout("zoomTo()", 5000);
-    }
-  }
-
-  function check() {
-    // alert(document.getElementById("answer").value);
-
-    var answer = document.getElementById("answer").value;
-    if (answer == "SFO" || answer == "San Francisco" || answer == "sfo") {
-      alert("Nice work!!!");
-    } else {
-      alert("Sorry, that's wrong. Try again!!!");
-    }
-  }
-
-</script>
 </body>
 </html>

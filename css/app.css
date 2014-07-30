@@ -5,3 +5,30 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+.navbar-custom {
+
+    background-color: rgba(50, 128, 165, .9);
+    /*background-color: #3280A5;*/
+    /*50  128 165 */
+
+    color:#ffffff;
+    border-radius:0;
+    /*min-height: 75px;*/
+}
+
+.navbar-fixed-top {
+    height: 70px;  /* Whatever you want. */
+}
+
+.navbar-custom .navbar-nav > li > a {
+    color:#fff;
+}
+.navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    color: #111111;
+    background-color:transparent;
+}
+.navbar-custom .navbar-brand {
+    color:#eeeeee;
+    font-size: 24pt;
+}

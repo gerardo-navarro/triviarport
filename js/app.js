@@ -44,9 +44,10 @@ google.maps.event.addDomListener(window, 'load', function() {
 
   var airport_datasource = new AirportDataAdapter();
   current_airport = airport_datasource.get_random_airport();
+  var current_airport_coordinates = new google.maps.LatLng(current_airport.latitude, current_airport.longitude);
 
   var mapProp = {
-    center: new google.maps.LatLng(current_airport.latitude, current_airport.longitude),
+    center: current_airport_coordinates,
     zoom: current_airport.initial_zoom_level, // should depend on the screen size
     mapTypeId: google.maps.MapTypeId.SATELLITE,
     // Disable all user interaction ...
@@ -55,6 +56,14 @@ google.maps.event.addDomListener(window, 'load', function() {
 
   var current_map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
   
+  var image = 'images/airport_icon_marker.png';
+  var beachMarker = new google.maps.Marker({
+      position: current_airport_coordinates,
+      map: current_map,
+      icon: image
+  });
+
+
   current_map.zoom_out = function() {
     
     if (current_map.getZoom() > 3) {

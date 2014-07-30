@@ -30,7 +30,7 @@ function AirportDataAdapter(datasource) {
   
 
   this.get_random_airport = function() {
-    var random_index = Math.floor(Math.random() * datasource.length) + 1;
+    var random_index = Math.floor(Math.random() * datasource.length);
     return datasource[random_index];
   };
 

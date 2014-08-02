@@ -84,8 +84,6 @@ google.maps.event.addDomListener(window, 'load', function() {
 
   var current_map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
   
-  
-
   current_map.zoom_out = function() {
     
     if (current_map.getZoom() > 3) {
@@ -106,14 +104,6 @@ google.maps.event.addDomListener(window, 'load', function() {
     }
   }
 
-  var zoom_out_thread = new Timer(current_map.zoom_out, 5000);
-
-  if (typeof(Storage) !== "undefined") {
-    if (!localStorage.getItem("airportrivia_newbee")) {
-      $("#helpModal").modal("show");
-    }
-  }
-
   // Start zooming out when the modal was hidden 
   $('#helpModal').on('hidden.bs.modal', function (e) {
     if (typeof(Storage) !== "undefined") {
@@ -125,6 +115,14 @@ google.maps.event.addDomListener(window, 'load', function() {
   $('#helpModal').on('show.bs.modal', function (e) {
     zoom_out_thread.pause();
   });
+
+  var zoom_out_thread = new Timer(current_map.zoom_out, 5000);
+
+  if (typeof(Storage) !== "undefined") {
+    if (!localStorage.getItem("airportrivia_newbee")) {
+      $("#helpModal").modal("show");
+    }
+  }
   
 });
 

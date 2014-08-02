@@ -8,7 +8,8 @@ html, body {
 
 .navbar-custom {
 
-    background-color: rgba(50, 128, 165, .9);
+    background-color: rgba(40, 40, 40, 0.90);
+    /*background-color: rgba(50, 128, 165, .9);*/
     /*background-color: #3280A5;*/
     /*50  128 165 */
 
@@ -22,13 +23,41 @@ html, body {
 }
 
 .navbar-custom .navbar-nav > li > a {
-    color:#fff;
+    color: #fff;
 }
+
 .navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
     color: #111111;
     background-color:transparent;
 }
+
 .navbar-custom .navbar-brand {
     color:#eeeeee;
     font-size: 24pt;
+}
+
+/*.modal {
+    position: fixed;
+    top: 50% !important;
+    left: 50%;
+}*/
+
+/*.modal-vertical-centered {*/
+  /*transform: translate(0, 50%) !important;*/
+  /*-ms-transform: translate(0, 50%) !important; /* IE 9 */
+  /*-webkit-transform: translate(0, 50%) !important; /* Safari and Chrome */
+/*}*/
+
+#airport_answer {
+  font-size: 24px;
+  padding: 0px 10px;
+}
+
+#myModalTitle {
+  letter-spacing: 2px;
+}
+
+#myModalContent {
+  line-height: 30px;
+  letter-spacing: 2px;
 }

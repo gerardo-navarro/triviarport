@@ -1,6 +1,6 @@
 function AirportDataAdapter(datasource) {
 
-  this.new_airport_object = function(name, city, iata, latitude, longitude, wikipedia, zoom_start_level) {
+  this.new_airport_object = function(name, city, iata, latitude, longitude, wikipedia, zoom_start_level, optional_keywords) {
     return {
       name: name,
       city: city,
@@ -8,7 +8,8 @@ function AirportDataAdapter(datasource) {
       latitude: latitude,
       longitude: longitude,
       wikipedia_url: wikipedia,
-      initial_zoom_level: zoom_start_level
+      initial_zoom_level: zoom_start_level,
+      optional_keywords: optional_keywords || []
     };    
   };
 
@@ -17,14 +18,14 @@ function AirportDataAdapter(datasource) {
   
   datasource = [
     this.new_airport_object("San Francisco International", "San Francisco", "SFO", 37.618972, -122.374889, "http://en.wikipedia.org/wiki/SFO", 16),
-    this.new_airport_object("Haneda Airport", "Tokyo", "HND", 35.552258, 139.779694, "http://en.wikipedia.org/wiki/Haneda_Airport", 16),
-    this.new_airport_object("London Heathrow Airport", "London", "LHR", 51.4775, -0.461389, "http://en.wikipedia.org/wiki/London_Heathrow_Airport", 16),
+    this.new_airport_object("Haneda Airport", "Tokyo", "HND", 35.552258, 139.779694, "http://en.wikipedia.org/wiki/Haneda_Airport", 16, ["Haneda"]),
+    this.new_airport_object("London Heathrow Airport", "London", "LHR", 51.4775, -0.461389, "http://en.wikipedia.org/wiki/London_Heathrow_Airport", 16, ["London Heathrow", "Heathrow"]),
     this.new_airport_object("Los Angeles International Airport", "Los Angeles", "LAX", 33.942536, -118.408075, "http://en.wikipedia.org/wiki/Los_Angeles_International_Airport", 16),
-    this.new_airport_object("O'Hare International Airport", "Chicago", "ORD", 41.978603, -87.904842, "http://en.wikipedia.org/wiki/O%27Hare_International_Airport", 16),
+    this.new_airport_object("O'Hare International Airport", "Chicago", "ORD", 41.978603, -87.904842, "http://en.wikipedia.org/wiki/O%27Hare_International_Airport", 16, ["O'Hare", "O Hare"]),
     this.new_airport_object("Hong Kong International Airport", "Hong Kong", "HKG", 22.308919, 113.914603, "http://en.wikipedia.org/wiki/Hong_Kong_International_Airport", 16),
     this.new_airport_object("Dubai International Airport", "Dubai", "DXB", 25.252778, 55.364444, "http://en.wikipedia.org/wiki/Dubai_International_Airport", 16),
-    this.new_airport_object("Dallas/Fort Worth International Airport", "Dallas", "DFW", 32.896828, -97.037997, "http://en.wikipedia.org/wiki/Dallas-Fort_Worth_International_Airport", 16),
-    this.new_airport_object("Charles de Gaulle Airport", "Paris", "CDG", 49.012779, 2.55, "http://en.wikipedia.org/wiki/Charles_de_Gaulle_Airport", 16),
+    this.new_airport_object("Dallas/Fort Worth International Airport", "Dallas", "DFW", 32.896828, -97.037997, "http://en.wikipedia.org/wiki/Dallas-Fort_Worth_International_Airport", 16, ["Fort Worth", "Dallas Fort Worth"]),
+    this.new_airport_object("Charles de Gaulle Airport", "Paris", "CDG", 49.012779, 2.55, "http://en.wikipedia.org/wiki/Charles_de_Gaulle_Airport", 16, ["Charles de Gaulle"]),
     this.new_airport_object("Frankfurt Airport", "Frankfurt", "FRA", 50.026421, 8.543125, "http://en.wikipedia.org/wiki/Frankfurt_Airport", 16)
   ];
   
@@ -56,18 +57,21 @@ google.maps.event.addDomListener(window, 'load', function() {
 
   var current_map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
   
-  var image = 'images/airport_icon_marker.png';
-  var beachMarker = new google.maps.Marker({
-      position: current_airport_coordinates,
-      map: current_map,
-      icon: image
-  });
-
-
   current_map.zoom_out = function() {
     
     if (current_map.getZoom() > 3) {
+
       current_map.setZoom(current_map.getZoom()-1);
+      
+      if (current_map.getZoom() == 12) {
+        var image = 'images/airport_icon_marker_small.png';
+        var beachMarker = new google.maps.Marker({
+            position: current_airport_coordinates,
+            map: current_map,
+            icon: image
+        });
+      }
+
       setTimeout(function() {
         current_map.zoom_out();
       }, 5000);
@@ -83,19 +87,39 @@ google.maps.event.addDomListener(window, 'load', function() {
   
 function check() {
 
-  var answer = document.getElementById("answer").value.trim();
+  var answer = document.getElementById("airport_answer").value.trim();
 
-  if (answer == undefined || answer == "") return;
+  if (answer == undefined || answer == "" || answer.length > 100) return;
 
-  console.log('"' + current_airport.iata_code.toLowerCase() + '".score("' + answer.toLowerCase() + '") => ' + current_airport.iata_code.toLowerCase().score(answer.toLowerCase()));
-  console.log('"' + current_airport.city.toLowerCase() + '".score("' + answer.toLowerCase() + ', 0.5") => ' + current_airport.city.toLowerCase().score(answer.toLowerCase(), 0.5));
-  console.log('"' + current_airport.name.toLowerCase() + '".score("' + answer.toLowerCase() + ', 0.5") => ' + current_airport.name.toLowerCase().score(answer.toLowerCase(), 0.5));
-  if (current_airport.iata_code.toLowerCase().score(answer.toLowerCase()) > 0.9 ||
-    current_airport.city.toLowerCase().score(answer.toLowerCase(), 0.5) > 0.8 ||
-    current_airport.name.toLowerCase().score(answer.toLowerCase(), 0.5) > 0.8) {
-    alert("Nice work!!!");
-    
-  } else {
-    alert("Sorry, that's wrong. Try again!!!");
+  // TODO:: Refactor this function, too much code duplication
+  if (current_airport.iata_code.toLowerCase() == answer.toLowerCase() ) {
+    alert("Nice work!!!1");
+    return;
   }
+
+  // We allow only one typo error
+  if (new Levenshtein(answer.toLowerCase(), current_airport.city.toLowerCase()).distance <= 1) {
+    alert("Nice work!!!2");
+    return;
+  }
+
+  for (var i = 0; i < current_airport.optional_keywords.length; i++) {
+
+    var keyword = current_airport.optional_keywords[i];
+    var lev_distance = new Levenshtein(answer.toLowerCase(), keyword.toLowerCase()).distance;
+
+    if (lev_distance <= 1) {
+      alert("Nice work!!!3");
+      return;   
+    } else if (answer.length > keyword.length + 1 && answer.length - keyword.length <= lev_distance + 1) {
+        alert("Nice work!!!4");
+        return;   
+    }
+  }
+
+  // if (current_airport.name.toLowerCase().score(answer.toLowerCase(), 0.5) > 0.8) {
+  //   alert("Nice work!!!");
+  // }
+  
+  alert("Sorry, that's wrong. Try again!!!");
 }

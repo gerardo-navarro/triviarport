@@ -42,11 +42,11 @@ html, body {
     left: 50%;
 }*/
 
-/*.modal-vertical-centered {*/
-  /*transform: translate(0, 50%) !important;*/
-  /*-ms-transform: translate(0, 50%) !important; /* IE 9 */
-  /*-webkit-transform: translate(0, 50%) !important; /* Safari and Chrome */
-/*}*/
+.modal-vertical-centered {
+  transform: translate(0, 50%) !important;
+  -ms-transform: translate(0, 50%) !important; /* IE 9 */
+  -webkit-transform: translate(0, 50%) !important; /* Safari and Chrome */
+}
 
 #airport_answer {
   font-size: 24px;

@@ -1,3 +1,30 @@
+function Timer(fn, countdown) {
+    var ident, complete = false;
+
+    function _time_diff(date1, date2) {
+        return date2 ? date2 - date1 : new Date().getTime() - date1;
+    }
+
+    function cancel() {
+        clearTimeout(ident);
+    }
+
+    function pause() {
+        clearTimeout(ident);
+        total_time_run = _time_diff(start_time);
+        complete = total_time_run >= countdown;
+    }
+
+    function resume() {
+        ident = complete ? -1 : setTimeout(fn, countdown - total_time_run);
+    }
+
+    var start_time = new Date().getTime();
+    ident = setTimeout(fn, countdown);
+
+    return { cancel: cancel, pause: pause, resume: resume };
+}
+
 function AirportDataAdapter(datasource) {
 
   this.new_airport_object = function(name, city, iata, latitude, longitude, wikipedia, zoom_start_level, optional_keywords) {
@@ -57,6 +84,8 @@ google.maps.event.addDomListener(window, 'load', function() {
 
   var current_map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
   
+  
+
   current_map.zoom_out = function() {
     
     if (current_map.getZoom() > 3) {
@@ -72,15 +101,30 @@ google.maps.event.addDomListener(window, 'load', function() {
         });
       }
 
-      setTimeout(function() {
-        current_map.zoom_out();
-      }, 5000);
+      // Start a new timer for the next zoom out
+      zoom_out_thread = new Timer(current_map.zoom_out, 5000);
     }
   }
 
-  setTimeout(function() {
-    current_map.zoom_out();
-  }, 5000);
+  var zoom_out_thread = new Timer(current_map.zoom_out, 5000);
+
+  if (typeof(Storage) !== "undefined") {
+    if (!localStorage.getItem("airportrivia_newbee")) {
+      $("#helpModal").modal("show");
+    }
+  }
+
+  // Start zooming out when the modal was hidden 
+  $('#helpModal').on('hidden.bs.modal', function (e) {
+    if (typeof(Storage) !== "undefined") {
+      localStorage.airportrivia_newbee = false;
+    }
+    zoom_out_thread.resume();
+  });
+
+  $('#helpModal').on('show.bs.modal', function (e) {
+    zoom_out_thread.pause();
+  });
   
 });
 

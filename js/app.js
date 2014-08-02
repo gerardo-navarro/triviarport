@@ -109,7 +109,8 @@ google.maps.event.addDomListener(window, 'load', function() {
     if (typeof(Storage) !== "undefined") {
       localStorage.airportrivia_newbee = false;
     }
-    $("#airport_answer").focus();
+    // defer execution of focus since we are in a dom-refreshing hidden-handler
+    setTimeout(function() { $("#airport_answer").focus(); }, 0);
     zoom_out_thread.resume();
   });
 
@@ -117,12 +118,15 @@ google.maps.event.addDomListener(window, 'load', function() {
     zoom_out_thread.pause();
   });
 
+  $('#helpModal').on('shown.bs.modal', function (e) {
+    $("#button-help-dismiss").focus();
+  });
+
   var zoom_out_thread = new Timer(current_map.zoom_out, 5000);
 
   if (typeof(Storage) !== "undefined") {
     if (!localStorage.getItem("airportrivia_newbee")) {
       $("#helpModal").modal("show");
-      $("#button-help-dismiss").focus();
     }
   }
   

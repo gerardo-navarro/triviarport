@@ -109,6 +109,7 @@ google.maps.event.addDomListener(window, 'load', function() {
     if (typeof(Storage) !== "undefined") {
       localStorage.airportrivia_newbee = false;
     }
+    $("#airport_answer").focus();
     zoom_out_thread.resume();
   });
 
@@ -121,6 +122,7 @@ google.maps.event.addDomListener(window, 'load', function() {
   if (typeof(Storage) !== "undefined") {
     if (!localStorage.getItem("airportrivia_newbee")) {
       $("#helpModal").modal("show");
+      $("#button-help-dismiss").focus();
     }
   }
   

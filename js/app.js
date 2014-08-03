@@ -219,9 +219,6 @@ google.maps.event.addDomListener(window, 'load', function() {
 
     prepare_resolution_modal_for(current_airport);
   });
-
-
-
   
 });
 

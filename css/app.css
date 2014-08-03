@@ -69,3 +69,10 @@ header.topbar .glyphicon:hover, header.topbar .glyphicon:focus {
   line-height: 30px;
   letter-spacing: 2px;
 }
+
+.my-modal-content .airport-image {
+  float: right;
+  margin-left:10px;
+  height: 150px;
+  width: 225px;
+}

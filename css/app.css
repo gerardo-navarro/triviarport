@@ -53,11 +53,11 @@ html, body {
   padding: 0px 10px;
 }
 
-#myModalTitle {
+.my-modal-title {
   letter-spacing: 2px;
 }
 
-#myModalContent {
+.my-modal-content h4 {
   line-height: 30px;
   letter-spacing: 2px;
 }

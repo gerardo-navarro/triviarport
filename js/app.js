@@ -144,11 +144,33 @@ google.maps.event.addDomListener(window, 'load', function() {
     if (typeof(Storage) !== "undefined") {
       localStorage.airportrivia_newbee = false;
     }
+    // defer execution of focus since we are in a dom-refreshing hidden-handler
+    setTimeout(function() { $("#airport_answer").focus(); }, 0);
     zoom_out_thread.resume();
   });
 
   $('#helpModal').on('show.bs.modal', function (e) {
     zoom_out_thread.pause();
+  });
+
+  $('#helpModal').on('shown.bs.modal', function (e) {
+    $("#button-help-dismiss").focus();
+  });
+  
+  $('#resolutionModal').on('hidden.bs.modal', function (e) {
+    current_airport = airport_data_adapter.get_random_airport();
+    current_airport_coordinates = new google.maps.LatLng(current_airport.latitude, current_airport.longitude);
+
+    mapProp = {
+      center: current_airport_coordinates,
+      zoom: current_airport.initial_zoom_level, // should depend on the screen size
+      mapTypeId: google.maps.MapTypeId.SATELLITE,
+      // Disable all user interaction ...
+      disableDefaultUI: true, draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true
+    };
+    current_map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    current_user.prepare_for_new_attempt();
+    zoom_out_thread = new Timer(current_map.zoom_out, 5000);
   });
 
   var zoom_out_thread = new Timer(current_map.zoom_out, 5000);
@@ -222,11 +244,5 @@ function show_negative_resolution_dialog() {
   show_resolution_dialog();
 }
 
-$('#resolutionModal').on('hidden.bs.modal', function (e) {
-  if (typeof(Storage) !== "undefined") {
-    localStorage.airportrivia_newbee = false;
-  }
-  zoom_out_thread.resume();
-});
 
 

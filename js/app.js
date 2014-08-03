@@ -273,13 +273,18 @@ function show_resolution_dialog() {
   $("#resolutionModal").modal("show");
 }
 
+var celebrations = Array("Nice done!", "Good job!", "Outstanding!", "Spectacular.", "You're raising the bar");
+var motivationals = Array("Off by one...", "Try again!", "Keep working on it!");
+
 function show_positive_resolution_dialog() {
-  $("#resolutionModalTitle").text("Nice work!!");
+  var text = celebrations[Math.floor(Math.random()*celebrations.length)];
+  $("#resolutionModalTitle").text(text);
   show_resolution_dialog();
 }
 
 function show_negative_resolution_dialog() {
-  $("#resolutionModalTitle").text("Sry, the right airport is ...");
+  var text = motivationals[Math.floor(Math.random()*motivationals.length)];
+  $("#resolutionModalTitle").text(text);
   show_resolution_dialog();
 }
 

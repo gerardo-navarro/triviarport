@@ -27,23 +27,6 @@
 
 <body>
 
-  <div class="modal fade">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title">Modal title</h4>
-        </div>
-        <div class="modal-body">
-          <p>One fine body&hellip;</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
   <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -56,7 +39,7 @@
       <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> -->
       <form class="navbar-form navbar-left" role="search" onsubmit="check();" autocomplete="off">
         <div class="form-group">
-          <input type="text" class="form-control" id="airport_answer" placeholder="Hit Enter &hellip;" data-keyboard="false" autofocus="autofocus" autofocus>
+          <input type="text" class="form-control" id="airport_answer" placeholder="Hit Enter &hellip;" data-keyboard="false" autocomplete="off" autofocus="autofocus" autofocus></input>
         </div>
         <a type="button" class="btn btn-default" onclick="check();" href="#">Check!</a>
       </form>
@@ -72,25 +55,15 @@
     </div>
   </nav>
 
-  <!-- Button trigger modal
-
-  <!-- Modal -->
-  <div class="modal" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <!-- Help Modal Dialog -->
+  <div class="modal" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModal" aria-hidden="true">
     <div class="modal-dialog modal-vertical-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <!-- <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> -->
-          <!-- <h1 class="modal-title text-center" id="myModalLabel">Try to guess the airport!!</h1> -->
-          <!-- <h1 class="modal-title text-center" id="myModalLabel">Guess the airport!!</h1> -->
-          <h1 class="modal-title text-center" id="myModalLabel">Can you identify the airport?</h1>
-          <!-- <h1 class="modal-title text-center" id="myModalLabel">Do you know this airport?</h1> -->
+          <h1 class="modal-title text-center my-modal-title" id="helpModalTitle">Can you identify the airport?</h1>
         </div>
-        <div class="modal-body" id="myModalContent">
-          <h4 class="text-center">The map zooms out every 5 seconds. Type in the name, IATA code and city of the airport in navigation bar. <br/>Hit RETURN key when done!!</h4>
-          <!-- <h4 class="text-center">Try to guess the airport by tipping in the name, IATA code and city of the airport. New clues will appear as the map zooms out every 5 seconds.</h4> -->
-          <!-- <p>Well, that is Embark on a journey that takes you all over the world.'s dThis is the question that we want to answer. </p> -->
-          <!-- <p>Embark on a journey that takes you all over the world.'s dThis is the question that we want to answer. </p> -->
-          <!-- <p>Map will zoom out every 5 seconds (from time to time)</p> -->
+        <div class="modal-body my-modal-content">
+          <h4 class="text-center" style="line-height: 30px;">The map zooms out every 5 seconds. Type in the name, IATA code or city of the airport in navigation bar and hit RETURN! You have 3 attempts to make it right.<br/> Good luck!!</h4>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-lg btn-primary col-xs-12" data-dismiss="modal">LET'S PLAY!!!</button>
@@ -99,11 +72,28 @@
     </div>
   </div>
 
-  <!-- <div class="row"> -->
-    <!-- <div class="alert alert-success" role="alert" style="position:absolute; top: 100px; z-index: 1000;"> -->
-      <!-- Well done! You successfully read this important alert message. -->
-    <!-- </div> -->
-  <!-- </div> -->
+  <!-- Resolution & Result Modal Dialog -->
+  <div class="modal" id="resolutionModal" tabindex="-1" role="dialog" aria-labelledby="resolutionModal" aria-hidden="true">
+    <div class="modal-dialog modal-vertical-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title text-center my-modal-title" id="resolutionModalTitle">Title will be injected</h1>
+        </div>
+        <div class="modal-body my-modal-content">
+          <h4 id="airportDescription" class="text-center">
+            <br/>
+            <a id="airportWikipedia" href="Wikipedia link will be injected" target="_blank">More details &raquo;</a>
+          </h4>
+          
+          <br/>
+          <h4 class="text-center"><a id="airportOnGoogleMap" href="Google Maps link will be injected" target="_blank">Explore the airport later</a></h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-lg btn-primary col-xs-12" data-dismiss="modal">LET'S TRY ANOTHER AIRPORT!!</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div id="googleMap" style="width:100%; height:100%;"></div>
 

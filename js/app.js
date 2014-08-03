@@ -158,7 +158,7 @@ function focus_airport_answer_input() {
 function reset_page_for_new_airport() {
 
     $("#airport_answer").val("");
-    $("#airport_answer").attr("placeholder", "Guess airport and hit RETURN &hellip;");
+    $("#airport_answer").attr("placeholder", "Guess airport and hit RETURN");
     current_user.prepare_for_new_attempt();
 }
 

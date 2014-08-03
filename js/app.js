@@ -83,7 +83,6 @@ function AirportDataAdapter(datasource) {
   this.get_random_airport = function() {
     var random_index = Math.floor(Math.random() * datasource.length);
     return datasource[random_index];
-    // return datasource[0];
   };
 
 }
@@ -101,85 +100,126 @@ var airport_datasource = new AirportDataAdapter();
 var current_user = new AirportriviaUser();
 var current_airport;   //shared variables
 
-google.maps.event.addDomListener(window, 'load', function() {
 
-  $('form').submit(false);
 
-  var airport_data_adapter = new AirportDataAdapter();
-  current_airport = airport_data_adapter.get_random_airport();
-  var current_airport_coordinates = new google.maps.LatLng(current_airport.latitude, current_airport.longitude);
+function show_airport_on_map(airport) {
+
+  var airport_coordinates = new google.maps.LatLng(airport.latitude, airport.longitude);
 
   var mapProp = {
-    center: current_airport_coordinates,
-    zoom: current_airport.initial_zoom_level, // should depend on the screen size
+    center: airport_coordinates,
+    zoom: airport.initial_zoom_level, // TODO:: Evaluate whether the initial zoom level should depend on the screen size
     mapTypeId: google.maps.MapTypeId.SATELLITE,
     // Disable all user interaction ...
     disableDefaultUI: true, draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true
   };
 
-  var current_map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+  var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
   
-  current_map.zoom_out = function() {
+  map.airport = airport;
+  
+  map.zoom_out = function() {
     
-    if (current_map.getZoom() > 3) {
+    if (map.getZoom() > 3) {
 
-      current_map.setZoom(current_map.getZoom()-1);
+      map.setZoom(map.getZoom()-1);
       
-      if (current_map.getZoom() == 12) {
-        var image = 'images/airport_icon_marker_small.png';
+      if (map.getZoom() == 12) {
         var beachMarker = new google.maps.Marker({
-            position: current_airport_coordinates,
-            map: current_map,
-            icon: image
+            position: airport_coordinates,
+            map: map,
+            icon: "images/airport_icon_marker_small.png"
         });
       }
 
       // Start a new timer for the next zoom out
-      zoom_out_thread = new Timer(current_map.zoom_out, 5000);
+      map.zoom_out_thread = new Timer(map.zoom_out, 5000);
     }
   }
 
-  // Start zooming out when the modal was hidden 
-  $('#helpModal').on('hidden.bs.modal', function (e) {
-    if (typeof(Storage) !== "undefined") {
-      localStorage.airportrivia_newbee = false;
-    }
-    // defer execution of focus since we are in a dom-refreshing hidden-handler
-    setTimeout(function() { $("#airport_answer").focus(); }, 0);
-    zoom_out_thread.resume();
-  });
+  map.zoom_out_thread = new Timer(map.zoom_out, 5000);
 
+  return map;
+}
+
+function prepare_resolution_modal_for(airport) {
+  $("#airportDescription").html(airport.description_text + " " + $("#airportWikipedia")[0].outerHTML);
+  $("#airportWikipedia").attr("href", airport.wikipedia_url);
+  $("#airportOnGoogleMap").attr("href", "https://maps.google.com/maps?ll={0},{1}&t=k&z={2}".format(airport.latitude, airport.longitude, airport.initial_zoom_level));
+}
+
+function focus_airport_answer_input() {
+  // Defer execution of focus since we are in a dom-refreshing hidden-handler
+  setTimeout(function() { $("#airport_answer").focus(); }, 0);
+}
+
+function reset_page_for_new_airport() {
+
+    $("#airport_answer").val("");
+    $("#airport_answer").attr("placeholder", "Guess airport and hit RETURN &hellip;");
+    current_user.prepare_for_new_attempt();
+}
+
+google.maps.event.addDomListener(window, 'load', function() {
+
+  // Disable the automatic submit of the form
+  $('form').submit(false);
+
+  var airport_data_adapter = new AirportDataAdapter();
+  current_airport = airport_data_adapter.get_random_airport();
+  var current_map = show_airport_on_map(current_airport);
+
+  // ---------- All event listeners for the help modal -------------
   $('#helpModal').on('show.bs.modal', function (e) {
-    zoom_out_thread.pause();
+    current_map.zoom_out_thread.pause();
   });
 
   $('#helpModal').on('shown.bs.modal', function (e) {
-    $("#button-help-dismiss").focus();
+    $("#button-help-modal-dismiss").focus();
   });
-  
-  $('#resolutionModal').on('hidden.bs.modal', function (e) {
-    current_airport = airport_data_adapter.get_random_airport();
-    current_airport_coordinates = new google.maps.LatLng(current_airport.latitude, current_airport.longitude);
-
-    mapProp = {
-      center: current_airport_coordinates,
-      zoom: current_airport.initial_zoom_level, // should depend on the screen size
-      mapTypeId: google.maps.MapTypeId.SATELLITE,
-      // Disable all user interaction ...
-      disableDefaultUI: true, draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true
-    };
-    current_map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-    current_user.prepare_for_new_attempt();
-    zoom_out_thread = new Timer(current_map.zoom_out, 5000);
-  });
-
-  var zoom_out_thread = new Timer(current_map.zoom_out, 5000);
 
   if (typeof(Storage) !== "undefined") {
     if (!localStorage.getItem("airportrivia_newbee")) {
       $("#helpModal").modal("show");
     }
   }
+
+  // Start or resume zooming out when the modal was hidden 
+  $('#helpModal').on('hidden.bs.modal', function (e) {
+    if (typeof(Storage) !== "undefined") {
+      localStorage.airportrivia_newbee = false;
+    }
+    
+    focus_airport_answer_input();
+    current_map.zoom_out_thread.resume();
+  });
+
+  prepare_resolution_modal_for(current_airport);
+
+  // ---------- All event listeners for the resolution modal -------------
+  $('#resolutionModal').on('show.bs.modal', function (e) {
+    current_map.zoom_out_thread.cancel();
+  });
+
+  $('#resolutionModal').on('shown.bs.modal', function (e) {
+    $("#button-resolution-modal-dismiss").focus();
+  });
+
+  $('#resolutionModal').on('hidden.bs.modal', function (e) {
+    
+    reset_page_for_new_airport();
+    
+    current_airport = airport_data_adapter.get_random_airport();
+
+    current_map = show_airport_on_map(current_airport);
+    
+    focus_airport_answer_input();
+
+    prepare_resolution_modal_for(current_airport);
+  });
+
+
+
   
 });
 
@@ -228,9 +268,6 @@ function check() {
 }
 
 function show_resolution_dialog() {
-  $("#airportDescription").html(current_airport.description_text + " " + $("#airportDescription").html());
-  $("#airportWikipedia").attr("href", current_airport.wikipedia_url);
-  $("#airportOnGoogleMap").attr("href", "https://maps.google.com/maps?ll={0},{1}&t=k&z={2}".format(current_airport.latitude, current_airport.longitude, current_airport.initial_zoom_level));
   $("#resolutionModal").modal("show");
 }
 

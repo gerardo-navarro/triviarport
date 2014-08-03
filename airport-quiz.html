@@ -39,7 +39,7 @@
       <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> -->
       <form class="navbar-form navbar-left" role="search" onsubmit="check();" autocomplete="off">
         <div class="form-group">
-          <input type="text" class="form-control" id="airport_answer" placeholder="Hit Enter &hellip;" data-keyboard="false" autocomplete="off" autofocus="autofocus" autofocus></input>
+          <input type="text" class="form-control" id="airport_answer" placeholder="Guess airport and hit RETURN &hellip;" data-keyboard="false" autocomplete="off" autofocus="autofocus" autofocus></input>
         </div>
         <a type="button" class="btn btn-default" onclick="check();" href="#">Check!</a>
       </form>
@@ -66,7 +66,7 @@
           <h4 class="text-center" style="line-height: 30px;">The map zooms out every 5 seconds. Type in the name, IATA code or city of the airport in navigation bar and hit RETURN! You have 3 attempts to make it right.<br/> Good luck!!</h4>
         </div>
         <div class="modal-footer">
-          <button type="button" id="button-help-dismiss" class="btn btn-lg btn-primary col-xs-12" data-dismiss="modal">LET'S PLAY!!!</button>
+          <button type="button" id="button-help-modal-dismiss" class="btn btn-lg btn-primary col-xs-12" data-dismiss="modal">LET'S PLAY!!!</button>
         </div>
       </div>
     </div>
@@ -81,15 +81,14 @@
         </div>
         <div class="modal-body my-modal-content">
           <h4 id="airportDescription" class="text-center">
-            <br/>
-            <a id="airportWikipedia" href="Wikipedia link will be injected" target="_blank">More details &raquo;</a>
+            <a id="airportWikipedia" href="Wikipedia link will be injected" target="_blank"><br/>More details &raquo;</a>
           </h4>
           
           <br/>
           <h4 class="text-center"><a id="airportOnGoogleMap" href="Google Maps link will be injected" target="_blank">Explore the airport later</a></h4>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-lg btn-primary col-xs-12" data-dismiss="modal">LET'S TRY ANOTHER AIRPORT!!</button>
+          <button type="button" id="button-resolution-modal-dismiss" class="btn btn-lg btn-primary col-xs-12" data-dismiss="modal">LET'S TRY ANOTHER AIRPORT!!</button>
         </div>
       </div>
     </div>

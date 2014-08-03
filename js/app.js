@@ -134,6 +134,8 @@ function show_airport_on_map(airport) {
 
       // Start a new timer for the next zoom out
       map.zoom_out_thread = new Timer(map.zoom_out, 5000);
+    } else {
+      setTimeout(function() { show_negative_resolution_dialog(); }, 10000);
     }
   }
 
@@ -208,7 +210,7 @@ google.maps.event.addDomListener(window, 'load', function() {
   $('#resolutionModal').on('hidden.bs.modal', function (e) {
     
     reset_page_for_new_airport();
-    
+
     current_airport = airport_data_adapter.get_random_airport();
 
     current_map = show_airport_on_map(current_airport);

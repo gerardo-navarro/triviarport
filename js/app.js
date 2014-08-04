@@ -1,3 +1,8 @@
+Array.prototype.get_random = function() {
+    var random_index = Math.floor(Math.random() * this.length);
+    return this[random_index];
+}
+
 String.prototype.format = String.prototype.f = function() {
     var s = this,
         i = arguments.length;
@@ -81,8 +86,7 @@ function AirportDataAdapter(datasource) {
   
 
   this.get_random_airport = function() {
-    var random_index = Math.floor(Math.random() * datasource.length);
-    return datasource[random_index];
+    return datasource.get_random();
   };
 
 }
@@ -274,16 +278,12 @@ var celebrations = Array("Nice done!", "Good job!", "Outstanding!", "Spectacular
 var motivationals = Array("Off by one ...", "Too bad ...", "Keep working on it!");
 
 function show_positive_resolution_dialog() {
-  var text = celebrations[Math.floor(Math.random() * celebrations.length)];
-  $("#resolutionModalTitle").text(text);
+  $("#resolutionModalTitle").text(celebrations.get_random());
   show_resolution_dialog();
 }
 
 function show_negative_resolution_dialog() {
-  var text = motivationals[Math.floor(Math.random() * motivationals.length)];
-  $("#resolutionModalTitle").text(text);
+  $("#resolutionModalTitle").text(motivationals.get_random());
   show_resolution_dialog();
 }
-
-
 

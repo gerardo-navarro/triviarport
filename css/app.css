@@ -6,22 +6,6 @@ html, body {
   padding: 0;
 }
 
-.navbar-custom {
-
-    background-color: rgba(40, 40, 40, 0.90);
-    /*background-color: rgba(50, 128, 165, .9);*/
-    /*background-color: #3280A5;*/
-    /*50  128 165 */
-
-    color:#ffffff;
-    border-radius:0;
-    /*min-height: 75px;*/
-}
-
-.navbar-fixed-top {
-    height: 70px;  /* Whatever you want. */
-}
-
 header.topbar {
   background-color: rgba(40, 40, 40, 0.90);
   color:#ffffff;

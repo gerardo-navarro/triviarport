@@ -158,7 +158,7 @@ function focus_airport_answer_input() {
 function reset_page_for_new_airport() {
 
     $("#airport_answer").val("");
-    $("#airport_answer").attr("placeholder", "Guess airport and hit RETURN &hellip;");
+    $("#airport_answer").attr("placeholder", "Guess the airport's name, IATA or city");
     current_user.prepare_for_new_attempt();
 }
 
@@ -255,9 +255,9 @@ function check() {
 
     $("#airport_answer").val("");
     if (current_user.current_attempt_count == 2) {
-      $("#airport_answer").attr("placeholder", "Sry, wrong! Two attempts left ...");
+      $("#airport_answer").attr("placeholder", "Sry! Two attempts left ...");
     } else {
-      $("#airport_answer").attr("placeholder", "Sry, wrong! Last attempt ...");
+      $("#airport_answer").attr("placeholder", "Sry! Last attempt ...");
     }
 
     return;
@@ -270,17 +270,17 @@ function show_resolution_dialog() {
   $("#resolutionModal").modal("show");
 }
 
-var celebrations = Array("Nice done!", "Good job!", "Outstanding!", "Spectacular.", "You're raising the bar");
-var motivationals = Array("Off by one...", "Try again!", "Keep working on it!");
+var celebrations = Array("Nice done!", "Good job!", "Outstanding!", "Spectacular.", "You're raising the bar!");
+var motivationals = Array("Off by one ...", "Too bad ...", "Keep working on it!");
 
 function show_positive_resolution_dialog() {
-  var text = celebrations[Math.floor(Math.random()*celebrations.length)];
+  var text = celebrations[Math.floor(Math.random() * celebrations.length)];
   $("#resolutionModalTitle").text(text);
   show_resolution_dialog();
 }
 
 function show_negative_resolution_dialog() {
-  var text = motivationals[Math.floor(Math.random()*motivationals.length)];
+  var text = motivationals[Math.floor(Math.random() * motivationals.length)];
   $("#resolutionModalTitle").text(text);
   show_resolution_dialog();
 }

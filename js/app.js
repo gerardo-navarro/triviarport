@@ -81,9 +81,16 @@ function AirportDataAdapter(datasource) {
 
     this.new_airport_object("Charles de Gaulle Airport", "Paris", "CDG", 49.012779, 2.55, "Paris Charles de Gaulle Airport (French: Aéroport de Paris-Charles-de-Gaulle, IATA: CDG), also known as Roissy Airport (or just Roissy in French), is one of the world's principal aviation centres, as well as France's largest airport.", "http://en.wikipedia.org/wiki/Charles_de_Gaulle_Airport", 16, ["Charles de Gaulle", "Roissy Airport", "Roissy"]),
 
-    this.new_airport_object("Frankfurt Airport", "Frankfurt", "FRA", 50.026421, 8.543125, "Frankfurt Airport (IATA: FRA) is a major international airport located in Frankfurt, the fifth-largest city of Germany and one of the world's leading financial centers. It is operated by Fraport and serves as the main hub for Lufthansa.", "http://en.wikipedia.org/wiki/Frankfurt_Airport", 16, ["Flughafen Frankfurt am Main", "Rhein-Main-Flughafen"])
+    this.new_airport_object("Frankfurt Airport", "Frankfurt", "FRA", 50.026421, 8.543125, "Frankfurt Airport (IATA: FRA) is a major international airport located in Frankfurt, the fifth-largest city of Germany and one of the world's leading financial centers. It is operated by Fraport and serves as the main hub for Lufthansa.", "http://en.wikipedia.org/wiki/Frankfurt_Airport", 16, ["Flughafen Frankfurt am Main", "Rhein-Main-Flughafen"]),
+
+    this.new_airport_object("Hartsfield–Jackson Atlanta International Airport", "Atlanta", "ATL", 33.6366995, -84.4278639, "Hartsfield–Jackson Atlanta International Airport (IATA: ATL), known locally as Atlanta Airport, Hartsfield, or Hartsfield–Jackson, is located seven miles (11 km) south of the central business district of Atlanta, Georgia, USA. It has been the world's busiest airport by passenger traffic since 1998, and by number of landings and take-offs since 2005. Hartsfield–Jackson held its ranking as the world's busiest airport in 2012 by accommodating 95 million passengers (more than 260,000 passengers daily) and 950,119 flights. Many of the nearly one million flights are domestic flights from within the United States, where Atlanta serves as a major hub for travel throughout the Southeastern United States. The airport has 207 domestic and international gates.", "http://en.wikipedia.org/wiki/Hartsfield%E2%80%93Jackson_Atlanta_International_Airport", 16, ["Atlanta Airport", "Hartsfield", "Hartsfield–Jackson", "Hartsfield–Jackson Atlanta"]),
+    
+    this.new_airport_object("Beijing Capital International Airport", "Beijing", "PEK", latitude, longitude, "Beijing Capital International Airport (IATA: PEK) is the main international airport serving Beijing. It is located 32 km (20 mi) northeast of Beijing's city center. The airport is owned and operated by the Beijing Capital International Airport Company Limited, a state-controlled company. The airport's IATA Airport code, PEK, is based on the city's former romanized name, Peking.", "http://en.wikipedia.org/wiki/Beijing_Capital_International_Airport", 16, ["Beijing Capital"])
+
+
+    // this.new_airport_object("name", "city", "iata", latitude, longitude, "description", "wikipedia", 16, ["keyword", "keyword"])
   ];
-  
+
 
   this.get_random_airport = function() {
     return datasource.get_random();

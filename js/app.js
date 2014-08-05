@@ -1,3 +1,5 @@
+var Triviarport = Triviarport || {};
+
 Array.prototype.get_random = function() {
     var random_index = Math.floor(Math.random() * this.length);
     return this[random_index];
@@ -98,23 +100,33 @@ function AirportDataAdapter(datasource) {
 
 }
 
+
+Triviarport.Game = function() {
+  this.user = new Triviarport.User();
+}
+
+Triviarport.Game.prototype.isGameOver = function() {
+  user.
+  return user.
+}
+
+Triviarport.User = function() {
+
 function AirportriviaUser() {
   this.airport_history = [];
-  this.current_attempt_count = 3;
+  this.wrong_attempt_count = 0;
   this.current_score_points = 80; // Why? Because it is we have 14 zoom levels taking 5 seconds each and finally we have 10 seconds in the final stage 
 
-  this.prepare_for_new_attempt = function() {
-    this.current_attempt_count = 3;
-  }
-
   this.update_score = function() {
-    $("#score-label").text(this.current_score_points.toString());
+    $("#score").text(this.current_score_points.toString());
   }
 }
 
-var airport_datasource = new AirportDataAdapter();
+
+var airport_data_adapter = new AirportDataAdapter();
 var current_user = new AirportriviaUser();
 var current_airport;   //shared variables
+var map;   //shared variables
 
 
 
@@ -130,7 +142,7 @@ function show_airport_on_map(airport) {
     disableDefaultUI: true, draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true
   };
 
-  var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+  map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
   
   map.airport = airport;
   
@@ -180,7 +192,7 @@ function reset_page_for_new_airport() {
 
     $("#airport_answer").val("");
     $("#airport_answer").attr("placeholder", "Guess the airport's name, IATA or city");
-    current_user.prepare_for_new_attempt();
+    // current_user.prepare_for_new_attempt();
 }
 
 google.maps.event.addDomListener(window, 'load', function() {
@@ -188,7 +200,7 @@ google.maps.event.addDomListener(window, 'load', function() {
   // Disable the automatic submit of the form
   $('form').submit(false);
 
-  var airport_data_adapter = new AirportDataAdapter();
+  // var airport_data_adapter = new AirportDataAdapter();
   current_airport = airport_data_adapter.get_random_airport();
   var current_map = show_airport_on_map(current_airport);
 
@@ -243,13 +255,10 @@ google.maps.event.addDomListener(window, 'load', function() {
     current_user.update_score();
     prepare_resolution_modal_for(current_airport);
   });
-  
 });
 
   
 function check() {
-
-  current_user.current_attempt_count--;
 
   var answer = document.getElementById("airport_answer").value.trim();
 
@@ -275,7 +284,9 @@ function check() {
     }
   }
 
-  if (current_user.current_attempt_count > 0) {
+  current_user.wrong_attempt_count++;
+
+  if (current_user.wrong_attempt_count current_attempt_count > 0) {
 
     $("#airport_answer").val("");
     if (current_user.current_attempt_count == 2) {
@@ -294,13 +305,30 @@ function show_resolution_dialog() {
   $("#resolutionModal").modal("show");
 }
 
-var celebrations = Array("Nice done!", "Good job!", "Outstanding!", "Spectacular.", "You're raising the bar!");
+var celebrations = Array("Nice done!", "Good job!", "Outstanding!", "Spectacular!", "Great!", "Awesome!");
 var motivationals = Array("Off by one ...", "Too bad ...", "Keep working on it!");
 
 function show_positive_resolution_dialog() {
-  // $("#resolutionModalTitle").text(celebrations.get_random());
-  // show_resolution_dialog();
 
+  map.zoom_out_thread.cancel();
+
+  $("#airport_answer").blur(); // Disable focus from input field to ignore any input
+  $("#airport-answer-form").toggleClass("has-success");
+
+  new Timer(function(){ $("#airport-answer-form").toggleClass("has-success"); }, 300);
+  new Timer(function(){ $("#airport-answer-form").toggleClass("has-success"); }, 600);
+  new Timer(function(){
+    $("#airport-answer-form").toggleClass("has-success");
+    current_airport = airport_data_adapter.get_random_airport();
+    map = show_airport_on_map(current_airport);
+  }, 900);
+  new Timer(function(){ $("#airport-answer-form").toggleClass("has-success"); }, 1200);
+  new Timer(function(){
+    $("#airport-answer-form").toggleClass("has-success");
+    reset_page_for_new_airport();
+    $("#airport_answer").attr("placeholder", "{0} Guess the next airport ...".format(celebrations.get_random()));
+    focus_airport_answer_input();
+  }, 1500);
   
 }
 

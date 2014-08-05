@@ -64,9 +64,7 @@ header.topbar .glyphicon:hover, header.topbar .glyphicon:focus {
 }
 
 .modal-vertical-centered {
-    /*position: fixed;*/
-    top: 130px !important;
-    /*left: 50%;*/
+    top: 90px !important;
 }
 
 #airport_answer {

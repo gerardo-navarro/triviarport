@@ -101,16 +101,24 @@ function AirportDataAdapter(datasource) {
 }
 
 
-Triviarport.Game = function() {
-  this.user = new Triviarport.User();
-}
+// Triviarport.Game = function() {
+//   this.user = new Triviarport.User();
+// }
 
-Triviarport.Game.prototype.isGameOver = function() {
-  user.
-  return user.
-}
+// Triviarport.Game.prototype.isGameOver = function() {
+//   user.wrong_attempt_count == 3
+//   return user.wrong_attempt_count == 3
+// }
+
+
 
 Triviarport.User = function() {
+  this.wrong_attempt_count = 0;
+}
+
+Triviarport.User.prototype.updateScore = function() {
+    $("#score").text(this.current_score_points.toString());
+  }
 
 function AirportriviaUser() {
   this.airport_history = [];
@@ -286,27 +294,36 @@ function check() {
 
   current_user.wrong_attempt_count++;
 
-  if (current_user.wrong_attempt_count current_attempt_count > 0) {
-
-    $("#airport_answer").val("");
-    if (current_user.current_attempt_count == 2) {
-      $("#airport_answer").attr("placeholder", "Sry! Two attempts left ...");
-    } else {
-      $("#airport_answer").attr("placeholder", "Sry! Last attempt ...");
-    }
-
+  if (current_user.wrong_attempt_count < 3) {
+    show_negative_resolution_dialog();
     return;
-  }
+  } 
 
-  show_negative_resolution_dialog();
-}
-
-function show_resolution_dialog() {
-  $("#resolutionModal").modal("show");
+  $("#game-over-modal").modal("show");
 }
 
 var celebrations = Array("Nice done!", "Good job!", "Outstanding!", "Spectacular!", "Great!", "Awesome!");
-var motivationals = Array("Off by one ...", "Too bad ...", "Keep working on it!");
+var motivationals = Array("Off by one!", "Too bad!", "Keep working on it!", "You can do it!", "Come on!");
+
+function show_resolution_dialog() {
+
+  map.zoom_out_thread.cancel();
+
+  $("#airport_answer").blur(); // Disable focus from input field to ignore any input
+  $("#airport-answer-form").toggleClass("has-error");
+
+  new Timer(function(){ $("#airport-answer-form").toggleClass("has-error"); }, 300);
+  new Timer(function(){ $("#airport-answer-form").toggleClass("has-error"); }, 600);
+  new Timer(function(){
+    $("#airport-answer-form").toggleClass("has-error");
+    $("#resolutionModal").modal("show");
+  }, 900);
+  new Timer(function(){ $("#airport-answer-form").toggleClass("has-error"); }, 1200);
+  new Timer(function(){
+    $("#airport-answer-form").toggleClass("has-error");
+  }, 1500);
+
+}
 
 function show_positive_resolution_dialog() {
 
@@ -328,6 +345,8 @@ function show_positive_resolution_dialog() {
     reset_page_for_new_airport();
     $("#airport_answer").attr("placeholder", "{0} Guess the next airport ...".format(celebrations.get_random()));
     focus_airport_answer_input();
+    current_user.current_score_points += 80;
+    current_user.update_score();
   }, 1500);
   
 }

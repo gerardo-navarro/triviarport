@@ -7,7 +7,7 @@ html, body {
 }
 
 header.topbar {
-  background-color: rgba(40, 40, 40, 0.90);
+  background-color: rgba(40, 40, 40, 0.8);
   color:#ffffff;
   position: fixed;
   width: 100%;
@@ -16,11 +16,13 @@ header.topbar {
   top: 0;
   left: 0;
   padding-top: 10px;
+
+  font-size: 24pt;
+  letter-spacing: 5px;
 }
 
 header.topbar .glyphicon {
   color: #fff;
-  font-size: 24pt;
   margin-top: 7px;
   cursor: pointer;
 }
@@ -36,7 +38,7 @@ header.topbar .glyphicon:hover, header.topbar .glyphicon:focus {
 
 .modal-vertical-centered {
     /*position: fixed;*/
-    top: 100px !important;
+    top: 130px !important;
     /*left: 50%;*/
 }
 
@@ -49,6 +51,7 @@ header.topbar .glyphicon:hover, header.topbar .glyphicon:focus {
   letter-spacing: 2px;
 }
 
+
 .my-modal-content h4 {
   line-height: 30px;
   letter-spacing: 2px;
@@ -59,4 +62,48 @@ header.topbar .glyphicon:hover, header.topbar .glyphicon:focus {
   margin-left:10px;
   height: 150px;
   width: 225px;
+}
+
+#score-board {
+  position: absolute;
+  width: 250px;
+  height: 55px;
+  right: 10px;
+  bottom: 25px;
+  /*margin-left: -125px;*/
+  font-size: 24pt;
+  color: #ffffff;
+  letter-spacing: 2px;
+  background-color: rgba(40, 40, 40, 0.8);
+
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px; /* future proofing */
+  -khtml-border-radius: 10px; /* for old Konqueror browsers */
+
+  padding: 5px 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#strike-board {
+  position: absolute;
+  width: 55px;
+  height: 100px;
+  right: 10px;
+  bottom: 70px;
+  /*margin-left: -125px;*/
+  font-size: 24pt;
+  color: #ffffff;
+  letter-spacing: 2px;
+  background-color: rgba(40, 40, 40, 0.8);
+
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px; /* future proofing */
+  -khtml-border-radius: 10px; /* for old Konqueror browsers */
+
+  padding: 5px 10px;
+  text-align: center;
+  vertical-align: middle;
 }

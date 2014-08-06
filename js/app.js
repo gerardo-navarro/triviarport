@@ -59,7 +59,7 @@ function AirportDataAdapter(datasource) {
   };
 
   // Keeping track of already used indices
-  excluding_indices = [];
+  var last_indices_used = [null, null, null];
   
   // Cheater!! Cheater!! Cheater!! Cheater!! Cheater!! Cheater!! Cheater!! Cheater!!
   // Yeah yeah, come on! Please don't look at the possible airport written in plain text!! Respect the others that are not as smart as you. Next version will be better ...
@@ -95,8 +95,16 @@ function AirportDataAdapter(datasource) {
 
 
   this.get_random_airport = function() {
-    // return datasource.get_random();
-    return datasource[11];
+    
+    do {
+      var random_index = Math.floor(Math.random() * datasource.length);
+    } while (last_indices_used[0] == random_index || last_indices_used[1] == random_index || last_indices_used[2] == random_index);
+
+    last_indices_used[0] = last_indices_used[1];
+    last_indices_used[1] = last_indices_used[2];
+    last_indices_used[2] = random_index;
+    return datasource[random_index];
+    // return datasource[11];
   };
 
 }
@@ -167,7 +175,11 @@ function show_airport_on_map(airport) {
         });
       }
 
-      current_user.current_score_points -= 5;
+      if (map.getZoom() > 7) {
+        current_user.current_score_points -= 5;
+      } else {
+        current_user.current_score_points -= 10;
+      }
       current_user.update_score();
 
 
@@ -175,7 +187,10 @@ function show_airport_on_map(airport) {
       map.zoom_out_thread = new Timer(map.zoom_out, 5000);
     
     } else {
-      setTimeout(function() { show_negative_resolution_dialog(); }, 10000);
+      setTimeout(function() {
+        show_negative_resolution_dialog();
+        current_user.current_score_points -= 10;
+      }, 10000);
     }
   }
 
@@ -247,6 +262,15 @@ google.maps.event.addDomListener(window, 'load', function() {
     $("#button-resolution-modal-dismiss").focus();
   });
 
+  $('#resolutionModal').on('hide.bs.modal', function (e) {
+    $("#airport-answer-form").removeClass("has-error");
+    $("#airport-answer-form").removeClass("has-success");
+    if ($("#score-life-{0}".format(current_user.wrong_attempt_count)).hasClass("losing")) {
+      $("#score-life-{0}".format(current_user.wrong_attempt_count)).removeClass("losing");
+      $("#score-life-{0}".format(current_user.wrong_attempt_count)).addClass("lost");
+    }
+  });
+
   $('#resolutionModal').on('hidden.bs.modal', function (e) {
     
     reset_page_for_new_airport();
@@ -258,7 +282,6 @@ google.maps.event.addDomListener(window, 'load', function() {
     
     focus_airport_answer_input();
 
-    current_user.current_score_points += 80;
     current_user.update_score();
     prepare_resolution_modal_for(current_airport);
   });
@@ -310,47 +333,45 @@ function check() {
 }
 
 var celebrations = Array("Nice done!", "Good job!", "Outstanding!", "Spectacular!", "Great!", "Awesome!");
-var motivationals = Array("Off by one!", "Too bad!", "Keep working on it!", "You can do it!", "Come on!");
+var motivationals = Array("Off by one!", "Too bad!", "Keep working on it!", "Not this time!", "You can do better!");
 
 function show_game_over_dialog() {
   $("#game-over-modal").modal("show");
-
-  new Timer(function(){
-    $("#airport-answer-form").toggleClass("has-error");
-    $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
-  }, 300);
-
+  $("#airport-answer-form").toggleClass("has-error");
+  $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
 }
 
-function show_resolution_dialog() {
+function show_negative_resolution_dialog() {
 
   map.zoom_out_thread.cancel();
 
   $("#airport_answer").blur(); // Disable focus from input field to ignore any input
   $("#airport-answer-form").toggleClass("has-error");
+  $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
+  $("#resolutionModalTitle").text(motivationals.get_random());
+  $("#resolutionModal").modal("show");
 
-
-  new Timer(function(){
-    $("#airport-answer-form").toggleClass("has-error");
-    $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
-  }, 300);
-  new Timer(function(){
-    $("#airport-answer-form").toggleClass("has-error");
-    $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
-  }, 600);
-  new Timer(function(){
-    $("#airport-answer-form").toggleClass("has-error");
-    $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
-    $("#resolutionModal").modal("show");
-  }, 900);
-  new Timer(function(){
-    $("#airport-answer-form").toggleClass("has-error");
-    $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
-  }, 1200);
-  new Timer(function(){
-    $("#airport-answer-form").toggleClass("has-error");
-    $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("lost");
-  }, 1500);
+  // new Timer(function(){
+  //   $("#airport-answer-form").toggleClass("has-error");
+  //   $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
+  // }, 300);
+  // new Timer(function(){
+  //   $("#airport-answer-form").toggleClass("has-error");
+  //   $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
+  // }, 600);
+  // new Timer(function(){
+  //   $("#airport-answer-form").toggleClass("has-error");
+  //   $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
+  //   $("#resolutionModal").modal("show");
+  // }, 900);
+  // new Timer(function(){
+  //   $("#airport-answer-form").toggleClass("has-error");
+  //   $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
+  // }, 1200);
+  // new Timer(function(){
+  //   $("#airport-answer-form").toggleClass("has-error");
+  //   $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("lost");
+  // }, 1500);
 
 }
 
@@ -358,33 +379,30 @@ function show_positive_resolution_dialog() {
 
   map.zoom_out_thread.cancel();
 
+  current_user.current_score_points += 80;
   $("#airport_answer").blur(); // Disable focus from input field to ignore any input
   $("#airport-answer-form").toggleClass("has-success");
+  $("#resolutionModalTitle").text(celebrations.get_random());
+  $("#resolutionModal").modal("show");
 
-  new Timer(function(){
-    $("#airport-answer-form").toggleClass("has-success");
+  // new Timer(function(){
+  //   $("#airport-answer-form").toggleClass("has-success");
 
-  }, 300);
-  new Timer(function(){ $("#airport-answer-form").toggleClass("has-success"); }, 600);
-  new Timer(function(){
-    $("#airport-answer-form").toggleClass("has-success");
-    current_airport = airport_data_adapter.get_random_airport();
-    map = show_airport_on_map(current_airport);
-  }, 900);
-  new Timer(function(){ $("#airport-answer-form").toggleClass("has-success"); }, 1200);
-  new Timer(function(){
-    $("#airport-answer-form").toggleClass("has-success");
-    reset_page_for_new_airport();
-    $("#airport_answer").attr("placeholder", "{0} Guess the next airport ...".format(celebrations.get_random()));
-    focus_airport_answer_input();
-    current_user.current_score_points += 80;
-    current_user.update_score();
-  }, 1500);
+  // }, 300);
+  // new Timer(function(){ $("#airport-answer-form").toggleClass("has-success"); }, 600);
+  // new Timer(function(){
+  //   $("#airport-answer-form").toggleClass("has-success");
+  //   current_airport = airport_data_adapter.get_random_airport();
+  //   map = show_airport_on_map(current_airport);
+  // }, 900);
+  // new Timer(function(){ $("#airport-answer-form").toggleClass("has-success"); }, 1200);
+  // new Timer(function(){
+  //   $("#airport-answer-form").toggleClass("has-success");
+  //   reset_page_for_new_airport();
+  //   $("#airport_answer").attr("placeholder", "{0} Guess the next airport ...".format(celebrations.get_random()));
+  //   focus_airport_answer_input();
+  //   current_user.current_score_points += 80;
+  //   current_user.update_score();
+  // }, 1500);
   
 }
-
-function show_negative_resolution_dialog() {
-  $("#resolutionModalTitle").text(motivationals.get_random());
-  show_resolution_dialog();
-}
-

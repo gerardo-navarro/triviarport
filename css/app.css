@@ -119,11 +119,121 @@ header.topbar .glyphicon:hover, header.topbar .glyphicon:focus {
 }
 
 /*.score-board span[id^="score-life"] .losing {*/
-.score-board .losing {
+/*.score-board .losing {
   color: #D18281 !important;
-}
+}*/
 
 /*.score-board span[id^="score-life"] .lost {*/
 .score-board .lost {
   display: none;
+}
+
+.has-success #airport_answer {
+
+    -webkit-animation-name: correct-answer-animation;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: correct-answer-animation;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: correct-answer-animation;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-moz-keyframes correct-answer-animation {  
+    0% { background-color: #78A179; }
+    50% { background-color: #fff; }
+    100% { background-color: #78A179; }
+}
+
+@-webkit-keyframes correct-answer-animation {  
+    0% { background-color: #78A179; }
+    50% { background-color: #fff; }
+    100% { background-color: #78A179; }
+}
+
+@keyframes correct-answer-animation {  
+    0% { background-color: #78A179; }
+    50% { background-color: #fff; }
+    100% { background-color: #78A179; }
+}
+
+
+.has-error #airport_answer {
+
+    -webkit-animation-name: incorrect-answer-animation;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: correct-answer-animation;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: correct-answer-animation;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-moz-keyframes incorrect-answer-animation {  
+    0% { background-color: #D18281; }
+    50% { background-color: #fff; }
+    100% { background-color: #D18281; }
+}
+
+@-webkit-keyframes incorrect-answer-animation {  
+    0% { background-color: #D18281; }
+    50% { background-color: #fff; }
+    100% { background-color: #D18281; }
+}
+
+@keyframes incorrect-answer-animation {  
+    0% { background-color: #D18281; }
+    50% { background-color: #fff; }
+    100% { background-color: #D18281; }
+}
+
+.score-board .losing {
+  color: #D18281;
+
+  -webkit-animation-name: losing-life-animation;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+
+  -moz-animation-name: losing-life-animation;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+
+  animation-name: losing-life-animation;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@-moz-keyframes losing-life-animation {  
+    0% { color: #D18281; }
+    50% { color: #fff; }
+    100% { color: #D18281; }
+}
+
+@-webkit-keyframes losing-life-animation {  
+    0% { color: #D18281; }
+    50% { color: #fff; }
+    100% { color: #D18281; }
+}
+
+@keyframes losing-life-animation {  
+    0% { color: #D18281; }
+    50% { color: #fff; }
+    100% { color: #D18281; }
 }

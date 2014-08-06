@@ -68,15 +68,13 @@
       <div class="row">
 
         <div class="col-sm-12">
-          <form class="form-horizontal" role="form" onsubmit="check();" autocomplete="off">
-            <div id="airport-answer-form" class="input-group has-feedback">
+          <form role="form" onsubmit="check();" autocomplete="off">
+            <div id="airport-answer-form" class="form-group has-feedback">
               <input type="text" class="form-control" id="airport_answer" placeholder="Guess the airport's name, IATA or city" data-keyboard="false" autocomplete="off" autofocus="autofocus" autofocus>
               <!-- <span class="form-control-feedback glyphicon glyphicon-thumbs-up" style="font-size:24px; right: 43px;"></span> -->
-              <span id="error-icon" class="form-control-feedback glyphicon glyphicon-thumbs-down" style="font-size:24px; right: 43px;"></span>
-              <span id="success-icon" class="form-control-feedback glyphicon glyphicon-thumbs-up" style="font-size:24px; right: 43px;"></span>
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button" onclick="check();">Go</button>
-              </span>
+              <span id="error-icon" class="form-control-feedback glyphicon glyphicon-thumbs-down" style="font-size:24px; top: 0px;"></span>
+              <span id="success-icon" class="form-control-feedback glyphicon glyphicon-thumbs-up" style="font-size:24px; top: 0px;"></span>
+              <!-- <span id="return-icon" class="form-control-feedback glyphicon glyphicon-thumbs-up" style="font-size:24px; top: 0px;"></span> -->
             </div>
           </form>
         </div>
@@ -118,18 +116,18 @@
     <div class="modal-dialog modal-vertical-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title text-center my-modal-title" id="resolutionModalTitle">Title will be injected</h1>
+          <h1 class="modal-title text-center my-modal-title" id="resolutionModalTitle">{{Title will be injected}}</h1>
+          <h1 class="modal-title text-center my-modal-title" id="resolution-modal-outcome">{{What the user gets, e.g. + 80 Points}}</h1>
         </div>
         <div class="modal-body my-modal-content">
-          <div>
-          <!-- <img class="airport-image" src="https://airviewonline.com/public/45983/los-angeles-international-airport.jpg" /> -->
-          <h4 id="airportDescription" class="text-center">
-            <a id="airportWikipedia" href="Wikipedia link will be injected" target="_blank"><br/>More details &raquo;</a>
-          </h4>
-          </div>
+
+          <h4 class="text-center">Facts about this airport</h4>
+          <p class="text-center modal-airport-description">
+            <a class="modal-airport-wikipedia-link" href="Wikipedia link will be injected" target="_blank">More details &raquo;</a>
+            <!-- <br/> -->
+            <!-- <a class="modal-airport-google-maps" href="Google Maps link will be injected" target="_blank">Explore the airport on your own &raquo;</a> -->
+          </p>
           
-          <br/>
-          <h4 class="text-center"><a id="airportOnGoogleMap" href="Google Maps link will be injected" target="_blank">Explore the airport on your own &raquo;</a></h4>
         </div>
         <div class="modal-footer">
           <button type="button" id="button-resolution-modal-dismiss" class="btn btn-lg btn-primary col-xs-12" data-dismiss="modal">ANY KEY TO CONTINUE!</button>
@@ -144,19 +142,30 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title text-center my-modal-title" id="game-over-modal-title">Game Over</h1>
+          <h1 class="modal-title text-center my-modal-title" id="game-over-modal-final-score">Final Score: {0} Points</h1>
         </div>
         <div class="modal-body my-modal-content">
 
-          <h3 class="text-center">
-            Your Final Score
-          </h3>
-          <h3 id="game-over-modal-final-score" class="text-center">
-            10000
-          </h3>
+          <h4 class="text-center">Facts about this airport</h4>
+          <p class="text-center modal-airport-description">
+            <a class="modal-airport-wikipedia-link" href="Wikipedia link will be injected" target="_blank">More details &raquo;</a>
+            <!-- <br/> -->
+            <!-- <a class="modal-airport-google-maps" href="Google Maps link will be injected" target="_blank">Explore the airport on your own &raquo;</a> -->
+          </p>
 
         </div>
         <div class="modal-footer">
-          <a id="game-over-modal-dismiss" class="btn btn-lg btn-primary col-xs-12" href="./airport-quiz.html"> NEW GAME! </a>
+          <div class="row">
+            <div class="col-xs-4">
+              <a class="btn btn-lg btn-primary col-xs-12" href="mailto:gerardo.navarro.suarez@gmail.com?Subject=Feedback%20for%20AirporTrivia:%20..."> GIVE FEEDBACK </a>
+            </div>
+            <div class="col-xs-4">
+              <a class="btn btn-lg btn-primary col-xs-12" href="http://www.facebook.com/triviaport"> LIKE US <span class="form-control-feedback glyphicon glyphicon-thumbs-up" style="font-size:24px; top: 4px; right: 4px;"></span></a>
+            </div>
+            <div class="col-xs-4">
+              <a id="game-over-modal-dismiss" class="btn btn-lg btn-success col-xs-12" href="./airport-quiz.html"> NEW GAME </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

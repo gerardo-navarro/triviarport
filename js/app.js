@@ -175,7 +175,7 @@ function show_airport_on_map(airport) {
         });
       }
 
-      if (map.getZoom() > 7) {
+      if (map.getZoom() >= 6) {
         current_user.current_score_points -= 5;
       } else {
         current_user.current_score_points -= 10;
@@ -188,7 +188,7 @@ function show_airport_on_map(airport) {
     
     } else {
       setTimeout(function() {
-        show_negative_resolution_dialog();
+        showTooLateResolutionModal()  
         current_user.current_score_points -= 10;
       }, 10000);
     }
@@ -200,9 +200,17 @@ function show_airport_on_map(airport) {
 }
 
 function prepare_resolution_modal_for(airport) {
-  $("#airportDescription").html(airport.description_text + " " + $("#airportWikipedia")[0].outerHTML);
-  $("#airportWikipedia").attr("href", airport.wikipedia_url);
-  $("#airportOnGoogleMap").attr("href", "https://maps.google.com/maps?ll={0},{1}&t=k&z={2}".format(airport.latitude, airport.longitude, airport.initial_zoom_level));
+  $('.modal-airport-description').each(function() {
+    $(this).html(airport.description_text + " " + $('.modal-airport-wikipedia-link')[0].outerHTML);
+  });
+  
+  $('.modal-airport-wikipedia-link').each(function() {
+    $(this).attr("href", airport.wikipedia_url);
+  });
+
+  $('.modal-airport-google-maps').each(function() {
+    $(this).attr("href", "https://maps.google.com/maps?ll={0},{1}&t=k&z={2}".format(airport.latitude, airport.longitude, airport.initial_zoom_level));
+  });
 }
 
 function focus_airport_answer_input() {
@@ -336,6 +344,9 @@ var celebrations = Array("Nice done!", "Good job!", "Outstanding!", "Spectacular
 var motivationals = Array("Off by one!", "Too bad!", "Keep working on it!", "Not this time!", "You can do better!");
 
 function show_game_over_dialog() {
+  map.zoom_out_thread.cancel();
+
+  $("#game-over-modal-final-score").text("{0} Points".format(current_user.current_score_points));
   $("#game-over-modal").modal("show");
   $("#airport-answer-form").toggleClass("has-error");
   $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
@@ -346,6 +357,7 @@ function show_negative_resolution_dialog() {
   map.zoom_out_thread.cancel();
 
   $("#airport_answer").blur(); // Disable focus from input field to ignore any input
+  $("#resolution-modal-outcome").html("No Points and &mdash;<span class=\"glyphicon glyphicon-heart\" style=\"top: 3px;\"></span>");
   $("#airport-answer-form").toggleClass("has-error");
   $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
   $("#resolutionModalTitle").text(motivationals.get_random());
@@ -380,9 +392,12 @@ function show_positive_resolution_dialog() {
   map.zoom_out_thread.cancel();
 
   current_user.current_score_points += 80;
+
   $("#airport_answer").blur(); // Disable focus from input field to ignore any input
-  $("#airport-answer-form").toggleClass("has-success");
+  
+  $("#resolution-modal-outcome").text("+80 Points");
   $("#resolutionModalTitle").text(celebrations.get_random());
+  $("#airport-answer-form").toggleClass("has-success");
   $("#resolutionModal").modal("show");
 
   // new Timer(function(){
@@ -405,4 +420,16 @@ function show_positive_resolution_dialog() {
   //   current_user.update_score();
   // }, 1500);
   
+}
+
+function showTooLateResolutionModal() {
+
+  map.zoom_out_thread.cancel();
+
+  $("#airport_answer").blur(); // Disable focus from input field to ignore any input
+  $("#airport-answer-form").toggleClass("has-error");
+  $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
+  $("#resolution-modal-outcome").html("-10 Points and &mdash;<span class=\"glyphicon glyphicon-heart\" style=\"top: 3px;\"></span>");
+  $("#resolutionModalTitle").text(motivationals.get_random());
+  $("#resolutionModal").modal("show");
 }

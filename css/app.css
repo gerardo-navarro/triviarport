@@ -12,7 +12,7 @@ header.topbar {
   position: fixed;
   width: 100%;
   height: 70px;
-  z-index: 1;
+  z-index: 1041; /* When a modal appears, bootstrap will include a backdrop panel that covers anything on the screen and then include the modal view. This backdrop panel will be placed on z-index = 1040. We don't want the backdrop to cover the top and bottom bar. So set the z-index for the bars at 1041 */
   top: 0;
   left: 0;
   padding-top: 10px;
@@ -39,7 +39,7 @@ div.bottombar {
   position: fixed;
   width: 100%;
   height: 60px;
-  z-index: 1;
+  z-index: 1041; /* When a modal appears, bootstrap will include a backdrop panel that covers anything on the screen and then include the modal view. This backdrop panel will be placed on z-index = 1040. We don't want the backdrop to cover the top and bottom bar. So set the z-index for the bars at 1041 */
   bottom: 0;
   left: 0;
   padding-top: 15px;

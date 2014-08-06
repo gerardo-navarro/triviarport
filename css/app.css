@@ -117,3 +117,13 @@ header.topbar .glyphicon:hover, header.topbar .glyphicon:focus {
 .has-error #airport_answer {
   background-color: #D18281; /* It is 30% lighter than the border-color set by Bootstrap on the success input (#843534) */
 }
+
+/*.score-board span[id^="score-life"] .losing {*/
+.score-board .losing {
+  color: #D18281 !important;
+}
+
+/*.score-board span[id^="score-life"] .lost {*/
+.score-board .lost {
+  display: none;
+}

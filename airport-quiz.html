@@ -32,7 +32,6 @@
       <div class="row">
 
         <div class="col-xs-3">
-          <!-- <h1>Triviaport</h1> -->
           <a href="." class="my-brand">Triviarport</a>
         </div>
 
@@ -44,7 +43,7 @@
         <div class="col-xs-2 score-board text-left">
           <!-- <p id="lives">1 / 3</p> -->
           <!-- <p class="score-label">Lives</p> -->
-          <span class="glyphicon glyphicon-heart"></span> <span class="glyphicon glyphicon-heart"></span> <span class="glyphicon glyphicon-heart"></span>
+          <span id="score-life-3" class="glyphicon glyphicon-heart"></span> <span id="score-life-2" class="glyphicon glyphicon-heart"></span> <span id="score-life-1" class="glyphicon glyphicon-heart blink_me"></span>
           <p class="score-label" style="margin-top: -4px;">Lives</p>
         </div>
 
@@ -99,7 +98,7 @@
             Can you identify the airport when the map zooms out? Type in the name, IATA code or city of the airport and hit RETURN! Three attempts should be enough. Let's see how many points you can get?
           </h4> -->
           <h4 class="text-center" style="line-height: 30px;">
-            Can you identify the airport? Guess the airport's name, IATA code or city and hit RETURN! Every 5 seconds the map zooms out and you also lose points. Game over after 3 wrong guesses.
+            Can you identify the airport? Guess the airport's name, IATA code or city and hit RETURN! A correct guess gives you 80 points. But you lose points when the map zooms out. Game over after 3 incorrect guesses.
             <br/>
             <br/> Let's see how many points you can get?
           </h4>
@@ -107,6 +106,7 @@
           <p class="text-center">Designed and developed by <a href="http://www.gerardo-navarro.de" target="_blank">Gerardo Navarro</a> and <a href="https://github.com/lukasniemeier" target="_blank">Lukas Niemeier</a> with fun and lots of passion. When you have some feedback for us, <a href="mailto:gerardo.navarro.suarez@gmail.com?Subject=Feedback%20for%20AirporTrivia:%20...">shoot us an email</a>.</p>
         </div>
         <div class="modal-footer">
+            <!-- <a type="button" class="btn btn-lg btn-primary col-xs-5" data-dismiss="modal">GIVE FEEDBACK!</a> -->
           <button type="button" id="button-help-modal-dismiss" class="btn btn-lg btn-primary col-xs-12" data-dismiss="modal">LET'S PLAY!</button>
         </div>
       </div>

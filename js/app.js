@@ -95,11 +95,11 @@ function AirportDataAdapter(datasource) {
 
 
   this.get_random_airport = function() {
-    return datasource.get_random();
+    // return datasource.get_random();
+    return datasource[11];
   };
 
 }
-
 
 // Triviarport.Game = function() {
 //   this.user = new Triviarport.User();
@@ -111,14 +111,13 @@ function AirportDataAdapter(datasource) {
 // }
 
 
-
 Triviarport.User = function() {
   this.wrong_attempt_count = 0;
 }
 
 Triviarport.User.prototype.updateScore = function() {
-    $("#score").text(this.current_score_points.toString());
-  }
+  $("#score").text(this.current_score_points.toString());
+}
 
 function AirportriviaUser() {
   this.airport_history = [];
@@ -180,7 +179,7 @@ function show_airport_on_map(airport) {
     }
   }
 
-  map.zoom_out_thread = new Timer(map.zoom_out, 5000);
+  map.zoom_out_thread = new Timer(map.zoom_out, 6000);
 
   return map;
 }
@@ -281,14 +280,22 @@ function check() {
   }
 
   for (var i = 0; i < current_airport.optional_keywords.length; i++) {
+
     var keyword = current_airport.optional_keywords[i];
-    var lev_distance = new Levenshtein(answer.toLowerCase(), keyword.toLowerCase()).distance;
-    if (lev_distance <= 1) {
+
+    if (new Levenshtein(answer.toLowerCase(), keyword.toLowerCase()).distance <= 1) {
+
       show_positive_resolution_dialog();
       return;   
-    } else if (answer.length > keyword.length + 1 && answer.length - keyword.length <= lev_distance + 1) {
-        show_positive_resolution_dialog();
-        return;   
+
+    } else {
+      var wordsInAnswer = answer.split(" ");
+      for (var j = 0; j < wordsInAnswer.length; j++) {
+        if (new Levenshtein(wordsInAnswer[j].trim().toLowerCase(), keyword.toLowerCase()).distance <= 1) {
+          show_positive_resolution_dialog();
+          return;   
+        }
+      }
     }
   }
 
@@ -299,11 +306,21 @@ function check() {
     return;
   } 
 
-  $("#game-over-modal").modal("show");
+  show_game_over_dialog();
 }
 
 var celebrations = Array("Nice done!", "Good job!", "Outstanding!", "Spectacular!", "Great!", "Awesome!");
 var motivationals = Array("Off by one!", "Too bad!", "Keep working on it!", "You can do it!", "Come on!");
+
+function show_game_over_dialog() {
+  $("#game-over-modal").modal("show");
+
+  new Timer(function(){
+    $("#airport-answer-form").toggleClass("has-error");
+    $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
+  }, 300);
+
+}
 
 function show_resolution_dialog() {
 
@@ -312,15 +329,27 @@ function show_resolution_dialog() {
   $("#airport_answer").blur(); // Disable focus from input field to ignore any input
   $("#airport-answer-form").toggleClass("has-error");
 
-  new Timer(function(){ $("#airport-answer-form").toggleClass("has-error"); }, 300);
-  new Timer(function(){ $("#airport-answer-form").toggleClass("has-error"); }, 600);
+
   new Timer(function(){
     $("#airport-answer-form").toggleClass("has-error");
+    $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
+  }, 300);
+  new Timer(function(){
+    $("#airport-answer-form").toggleClass("has-error");
+    $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
+  }, 600);
+  new Timer(function(){
+    $("#airport-answer-form").toggleClass("has-error");
+    $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
     $("#resolutionModal").modal("show");
   }, 900);
-  new Timer(function(){ $("#airport-answer-form").toggleClass("has-error"); }, 1200);
   new Timer(function(){
     $("#airport-answer-form").toggleClass("has-error");
+    $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
+  }, 1200);
+  new Timer(function(){
+    $("#airport-answer-form").toggleClass("has-error");
+    $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("lost");
   }, 1500);
 
 }
@@ -332,7 +361,10 @@ function show_positive_resolution_dialog() {
   $("#airport_answer").blur(); // Disable focus from input field to ignore any input
   $("#airport-answer-form").toggleClass("has-success");
 
-  new Timer(function(){ $("#airport-answer-form").toggleClass("has-success"); }, 300);
+  new Timer(function(){
+    $("#airport-answer-form").toggleClass("has-success");
+
+  }, 300);
   new Timer(function(){ $("#airport-answer-form").toggleClass("has-success"); }, 600);
   new Timer(function(){
     $("#airport-answer-form").toggleClass("has-success");

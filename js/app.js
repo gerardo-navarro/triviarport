@@ -60,7 +60,7 @@ function AirportDataAdapter(datasource) {
   };
 
   // Keeping track of already used indices
-  var last_indices_used = [null, null, null];
+  var last_indices_used = [null, null, null, null, null, null, null, null];
   
   // Cheater!! Cheater!! Cheater!! Cheater!! Cheater!! Cheater!! Cheater!! Cheater!!
   // Yeah yeah, come on! Please don't look at the possible airport written in plain text!! Respect the others that are not as smart as you. Next version will be better ...
@@ -90,15 +90,15 @@ function AirportDataAdapter(datasource) {
     
     this.new_airport_object("Beijing Capital International Airport", "Beijing", "PEK", 40.075674, 116.606158, "Beijing Capital International Airport (IATA: PEK) is the main international airport serving Beijing. It is located 32 km (20 mi) northeast of Beijing's city center. The airport is owned and operated by the Beijing Capital International Airport Company Limited, a state-controlled company. The airport's IATA Airport code, PEK, is based on the city's former romanized name, Peking.", "http://en.wikipedia.org/wiki/Beijing_Capital_International_Airport", 16, ["Beijing Capital", "Peking"]),
 
-    this.new_airport_object("Pyongyang Sunan International Airport", "Pyongyang", "FNJ", 39.201631, 125.674836, "Pyongyang Sunan International Airport (IATA: FNJ) is the main airport serving Pyongyang, capital of the Democratic People's Republic of Korea (North Korea). It is located in the city's Sunan-guyŏk district, 24 kilometres (15 mi) from the city's centre.", "http://en.wikipedia.org/wiki/Pyongyang_Sunan_International_Airport", 16, ["Pyongyang Sunan", "Pyongyang International"]),
+    // this.new_airport_object("Pyongyang Sunan International Airport", "Pyongyang", "FNJ", 39.201631, 125.674836, "Pyongyang Sunan International Airport (IATA: FNJ) is the main airport serving Pyongyang, capital of the Democratic People's Republic of Korea (North Korea). It is located in the city's Sunan-guyŏk district, 24 kilometres (15 mi) from the city's centre.", "http://en.wikipedia.org/wiki/Pyongyang_Sunan_International_Airport", 16, ["Pyongyang Sunan", "Pyongyang International"]),
 
     this.new_airport_object("Gibraltar International Airport", "Gibraltar", "GIB", 36.151219, -5.349664, "Gibraltar International Airport or North Front Airport (IATA: GIB) is the civilian airport that serves the British overseas territory of Gibraltar. The runway is owned by the Ministry of Defence for use by the Royal Air Force as RAF Gibraltar. The History Channel programme Most Extreme Airports ranked the airport the fifth most extreme airport in the world.", "http://en.wikipedia.org/wiki/Gibraltar_International_Airport", 16, ["North Front"]),
 
     this.new_airport_object("Tenzing-Hillary Airport", "Lukla", "LUA", 27.687778, 86.731389, "Tenzing-Hillary Airport (IATA: LUA), also known as Lukla Airport, is a small airport in the town of Lukla, in eastern Nepal. A program titled Most Extreme Airports, broadcast on The History Channel in 2010, rated the airport as the most dangerous airport in the world. In January 2008 the airport was renamed in honor of Sir Edmund Hillary and Sherpa Tenzing Norgay, the first people to reach the summit of Mount Everest and also to mark their efforts in the construction of this airport. The airport is popular because Lukla is the place where most people start the climb to Mount Everest Base Camp.", "http://en.wikipedia.org/wiki/Tenzing-Hillary_Airport", 16, ["Tenzing-Hillary"]),
 
-    this.new_airport_object("Saint Barthelemy Airport", "Gustavia", "iata", 17.904425, -62.846112, "Gustaf III Airport (IATA: SBH), also known as Saint Barthélemy Airport, sometimes as St. Jean Airport, is a public use airport located in the village of St. Jean on the Caribbean island of Saint Barthélemy. Both the airport and the island's main town of Gustavia are named for King Gustav III of Sweden, under whom Sweden obtained the island from France in 1784 (it was sold back to France in 1878).", "http://en.wikipedia.org/wiki/Gustaf_III_Airport", 16, ["St. Barthelemy", "Saint Barthelemy", "St. Jean", "Saint Jean", "Gustaf III"]),
+    // this.new_airport_object("Saint Barthelemy Airport", "Gustavia", "iata", 17.904425, -62.846112, "Gustaf III Airport (IATA: SBH), also known as Saint Barthélemy Airport, sometimes as St. Jean Airport, is a public use airport located in the village of St. Jean on the Caribbean island of Saint Barthélemy. Both the airport and the island's main town of Gustavia are named for King Gustav III of Sweden, under whom Sweden obtained the island from France in 1784 (it was sold back to France in 1878).", "http://en.wikipedia.org/wiki/Gustaf_III_Airport", 16, ["St. Barthelemy", "Saint Barthelemy", "St. Jean", "Saint Jean", "Gustaf III"]),
 
-    this.new_airport_object("Helgoland-Düne Airport", "Helgoland", "HGL", 54.1853, 7.91583, "Heligoland Airport (IATA: HGL) is a small airport on the German island of Düne, the smaller of the two isles of the Heligoland archipelago in the North Sea, about 70 kilometres (43 mi) from the mainland.", "http://en.wikipedia.org/wiki/Helgoland_Airport", 16, ["Helgoland", "Düne"]),
+    // this.new_airport_object("Helgoland-Düne Airport", "Helgoland", "HGL", 54.1853, 7.91583, "Heligoland Airport (IATA: HGL) is a small airport on the German island of Düne, the smaller of the two isles of the Heligoland archipelago in the North Sea, about 70 kilometres (43 mi) from the mainland.", "http://en.wikipedia.org/wiki/Helgoland_Airport", 16, ["Helgoland", "Düne"]),
 
     this.new_airport_object("Adolfo Suárez Madrid–Barajas Airport", "Madrid", "MAD", 40.493556, -3.566764, "Adolfo Suárez Madrid–Barajas Airport (Spanish: Aeropuerto Adolfo Suárez Madrid-Barajas (IATA: MAD) is the main international airport serving Madrid in Spain. In 2011 and 2010, over 49 million passengers used Madrid–Barajas, making it the country's largest and busiest airport, and in 2013 it was Europe's sixth busiest airport. Located within the city limits of Madrid, just 9 km (5.6 mi) from the city's financial district and 13 km (8.1 mi) northeast of the Puerta del Sol, Madrid's historic centre. The airport name derives from the adjacent district of Barajas, which has its own metro station on the same rail line serving the airport.", "http://en.wikipedia.org/wiki/Adolfo_Su%C3%A1rez_Madrid%E2%80%93Barajas_Airport", 16, ["Barajas", "Madrid Barajas", "Adolfo Suárez Madrid", "Adolfo Suárez"]),
 
@@ -112,7 +112,7 @@ function AirportDataAdapter(datasource) {
 
     this.new_airport_object("Cologne/Bonn Airport", "Cologne Bonn", "CGN", 50.876828, 7.125743, "Cologne / Bonn Airport (IATA: CGN) is the international airport of Germany's fourth largest city, Cologne and also serves the former German capital Bonn. It is the seventh largest passenger airport in Germany and second largest in terms of cargo operations. It is one of the country's few 24-hour airports and serves as a hub for Germanwings, FedEx Express and UPS Airlines. Close to 9.3 million passengers passed through the airport in 2012. Cologne Bonn Airport also is a host of the German and European space agencies DLR and EAC, part of ESA, which train astronauts there for space explorations.", "http://en.wikipedia.org/wiki/Cologne_Bonn_Airport", 16, ["Bonn", "Cologne", "Konrad Adenauer", "Köln Wahn"]),
 
-    this.new_airport_object("Juancho E. Yrausquin Airport", "Saba", "SAB", 17.645278, -63.220556, "Juancho E. Yrausquin Airport (IATA: SAB) is the only airport on the Caribbean island of Saba. The airport has the shortest commercial runway in the world, only 396 meters (1,299 ft) long, flanked on one side by high hills, with cliffs that drop into the sea at both ends. Although the airport is closed to jet traffic, regional airline propeller aircraft are able to land there under waivers from The Netherlands Antilles' Civil Aviation Authority. The most common aircraft to land there are the Twin Otter and BN-2 Islander.", "http://en.wikipedia.org/wiki/Juancho_E._Yrausquin_Airport", 16, ["Juancho Yrausquin", "Yrausquin"]),
+    // this.new_airport_object("Juancho E. Yrausquin Airport", "Saba", "SAB", 17.645278, -63.220556, "Juancho E. Yrausquin Airport (IATA: SAB) is the only airport on the Caribbean island of Saba. The airport has the shortest commercial runway in the world, only 396 meters (1,299 ft) long, flanked on one side by high hills, with cliffs that drop into the sea at both ends. Although the airport is closed to jet traffic, regional airline propeller aircraft are able to land there under waivers from The Netherlands Antilles' Civil Aviation Authority. The most common aircraft to land there are the Twin Otter and BN-2 Islander.", "http://en.wikipedia.org/wiki/Juancho_E._Yrausquin_Airport", 16, ["Juancho Yrausquin", "Yrausquin"]),
     
     this.new_airport_object("Princess Juliana International Airport", "Philipsburg", "SXM", 18.041258, -63.112841, "Princess Juliana International Airport (IATA: SXM) (also known as Sint Maarten International Airport) serves the Dutch part of the island of Saint Martin. The airport is the major gateway for the smaller Leeward Islands, including Anguilla, Saba, St. Barthélemy and St. Eustatius. It is named after Juliana of the Netherlands, who as crown princess landed here in 1944, the year after the airport opened. The airport is perhaps best known for very low-altitude flyover landing approaches due to one end of its runway being extremely close to the shore and Maho Beach.", "http://en.wikipedia.org/wiki/Princess_Juliana_International_Airport", 16, ["Saint Martin", "St Martin", "Princess Juliana", "Sint Maarten", "St Maarten"]),
 
@@ -144,7 +144,7 @@ function AirportDataAdapter(datasource) {
 
     this.new_airport_object("Singapore Changi International Airport", "Singapore", "SIN", 1.355623, 103.987741, "Singapore Changi Airport (IATA: SIN), Changi International Airport, or simply Changi Airport, is the main airport in Singapore. The airport, operated by the Changi Airport Group, is the home base of Singapore Airlines, Singapore Airlines Cargo, SilkAir, AirAsia, Scoot, Tigerair, Jetstar Asia Airways, and Valuair. As of May 2013, Changi Airport serves more than 100 airlines operating 6,400 weekly flights connecting Singapore to over 250 cities in about 60 countries and territories worldwide. Until 30 March 2013, the airport served as a secondary hub for Qantas, which used Singapore as the main stopover point for flights on the Kangaroo Route between Australia and Europe.", "http://en.wikipedia.org/wiki/Changi_International_Airport", 16, ["Changi Airport", "Changi International", "Changi"]),
     
-    this.new_airport_object("Sydney (Kingsford Smith) Airport", "Sydney", "SYD", -33.93356, 151.175351, "Sydney (Kingsford Smith) Airport (also known as Kingsford-Smith Airport and Sydney Airport; IATA: SYD) is an international airport located 8 km (5 mi) south of the city centre, in the suburb of Mascot in Sydney. It is the only major airport serving Sydney, and is a primary hub for Qantas, as well as a secondary hub for Virgin Australia and Jetstar Airways. Situated next to Botany Bay, the airport has three runways, colloquially known as the \"east–west\", \"north–south\" and \"third\" runways.", "http://en.wikipedia.org/wiki/Sydney_Airport", 16, ["Kingsford Smith", "Kingsford-Smith Airport"]),
+    this.new_airport_object("Sydney Kingsford Smith Airport", "Sydney", "SYD", -33.93356, 151.175351, "Sydney (Kingsford Smith) Airport (also known as Kingsford-Smith Airport and Sydney Airport; IATA: SYD) is an international airport located 8 km (5 mi) south of the city centre, in the suburb of Mascot in Sydney. It is the only major airport serving Sydney, and is a primary hub for Qantas, as well as a secondary hub for Virgin Australia and Jetstar Airways. Situated next to Botany Bay, the airport has three runways, colloquially known as the \"east–west\", \"north–south\" and \"third\" runways.", "http://en.wikipedia.org/wiki/Sydney_Airport", 16, ["Kingsford Smith", "Kingsford-Smith Airport"]),
 
     this.new_airport_object("Canberra International Airport", "Canberra", "CBR", -35.306353, 149.191525, "Canberra International Airport (IATA: CBR), now trading as Canberra Airport, is the airport serving Australia's capital city, Canberra, and the city of Queanbeyan, NSW. Located at the eastern edge of North Canberra, it is the 8th busiest airport in Australia. Although the airport is designated by the Australian Government as an \"Designated International Airport\" there are no current scheduled international flights, only ad hoc and charter flights operate. Air Pacific briefly offered a service to Fiji for six months in 2004. Canberra Airport is managed and operated by the Canberra Airport Group Pty Ltd. The airport serves flights to the main capital cities of Australia and to Newcastle and the Gold Coast.", "http://en.wikipedia.org/wiki/Canberra_airport", 16, ["Canberra International "]),
 
@@ -176,14 +176,27 @@ function AirportDataAdapter(datasource) {
     
     do {
       var random_index = Math.floor(Math.random() * datasource.length);
-    } while (last_indices_used[0] == random_index || last_indices_used[1] == random_index || last_indices_used[2] == random_index);
+    } while (last_indices_used[0] == random_index ||
+      last_indices_used[1] == random_index ||
+      last_indices_used[2] == random_index ||
+      last_indices_used[3] == random_index ||
+      last_indices_used[4] == random_index ||
+      last_indices_used[5] == random_index ||
+      last_indices_used[6] == random_index ||
+      last_indices_used[7] == random_index ||
+      last_indices_used[8] == random_index);
 
     last_indices_used[0] = last_indices_used[1];
     last_indices_used[1] = last_indices_used[2];
-    last_indices_used[2] = random_index;
-    alert(datasource.length);
+    last_indices_used[2] = last_indices_used[3];
+    last_indices_used[3] = last_indices_used[4];
+    last_indices_used[4] = last_indices_used[5];
+    last_indices_used[5] = last_indices_used[6];
+    last_indices_used[6] = last_indices_used[7];
+    last_indices_used[7] = last_indices_used[8];
+    last_indices_used[8] = random_index;
     return datasource[random_index];
-    // return datasource[datasource.length-2];
+    // return datasource[0];
   };
 
 }
@@ -251,7 +264,14 @@ function show_airport_on_map(airport) {
     
     if (map.getZoom() > 3) {
 
-      map.setZoom(map.getZoom()-1);
+      var nextZoomLevel = map.getZoom() - 1;
+
+      // Skip zoom level 5 and 10 because they cost time without providing more information
+      if (nextZoomLevel == 5 || nextZoomLevel == 10) {
+        nextZoomLevel--;
+      }
+
+      map.setZoom(nextZoomLevel);
       
       if (map.getZoom() == 12) {
         var beachMarker = new google.maps.Marker({
@@ -261,7 +281,7 @@ function show_airport_on_map(airport) {
         });
       }
 
-      if (map.getZoom() >= 6) {
+      if (map.getZoom() >= 7) {
         current_user.current_round_points -= 5;
       } else {
         current_user.current_round_points -= 10;
@@ -275,6 +295,8 @@ function show_airport_on_map(airport) {
     } else {
       setTimeout(function() {
         current_user.wrong_attempt_count++;
+        current_user.current_round_points = 0; 
+        current_user.updateRoundPoints();
         showTooLateResolutionModal()  
       }, 10000);
     }
@@ -286,8 +308,20 @@ function show_airport_on_map(airport) {
 }
 
 function prepare_resolution_modal_for(airport) {
+
+  $("#resolutionModal").removeClass("success");
+  $("#resolutionModal").removeClass("error");
+
+  $('.modal-airport-description-short').each(function() {
+    $(this).html("{0} (IATA: {1}) in {2}.".format(airport.name, airport.iata_code, airport.city));
+  });
+
   $('.modal-airport-description').each(function() {
     $(this).html(airport.description_text + " " + $('.modal-airport-wikipedia-link')[0].outerHTML);
+  });
+
+  $('.modal-airport-description-mobile').each(function() {
+    $(this).html("This airport is {0} (IATA: {1}) in {2}. {3}".format(airport.name, airport.iata_code, airport.city, $('.modal-airport-wikipedia-link')[0].outerHTML));
   });
   
   $('.modal-airport-wikipedia-link').each(function() {
@@ -374,6 +408,11 @@ google.maps.event.addDomListener(window, 'load', function() {
     current_user.updateScore();
     prepare_resolution_modal_for(current_airport);
   });
+
+  $('#game-over-modal').on('shown.bs.modal', function (e) {
+    $("#button-game-over-modal-dismiss").focus();
+  });
+
 });
 
   
@@ -412,6 +451,8 @@ function check() {
   }
 
   current_user.wrong_attempt_count++;
+  current_user.current_round_points = 0; 
+  current_user.updateRoundPoints();
 
   if (current_user.wrong_attempt_count < 3) {
     show_negative_resolution_dialog();
@@ -421,29 +462,29 @@ function check() {
   show_game_over_dialog();
 }
 
-var celebrations = Array("Nice done!", "Good job!", "Outstanding!", "Spectacular!", "Great!", "Awesome!");
-var motivationals = Array("Off by one!", "Too bad!", "Keep working on it!", "Not this time!", "You can do better!");
 
 function show_game_over_dialog() {
   map.zoom_out_thread.cancel();
 
   $("#airport_answer").blur(); // Disable focus from input field to ignore any input
   $("#game-over-modal-final-score").text("{0} Points".format(current_user.score));
+  $("#game-over-modal").addClass("error");
   $("#game-over-modal").modal("show");
   $("#airport-answer-form").toggleClass("has-error");
   $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
 }
 
+var motivationals = Array("Off by one!", "Too bad!", "Keep working on it!", "Not this time!", "You can do better!");
 function show_negative_resolution_dialog() {
 
   map.zoom_out_thread.cancel();
-
   $("#airport_answer").blur(); // Disable focus from input field to ignore any input
 
   $("#airport-answer-form").toggleClass("has-error");
   $("#resolution-modal-outcome").html("No Points and &mdash;<span class=\"glyphicon glyphicon-heart\" style=\"top: 3px;\"></span>");
   $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
   $("#resolutionModalTitle").text(motivationals.get_random());
+  $("#resolutionModal").addClass("error");
   $("#resolutionModal").modal("show");
 
 }
@@ -458,9 +499,11 @@ function showTooLateResolutionModal() {
   $("#score-life-{0}".format(current_user.wrong_attempt_count)).toggleClass("losing");
   $("#resolution-modal-outcome").html("No Points and &mdash;<span class=\"glyphicon glyphicon-heart\" style=\"top: 3px;\"></span>");
   $("#resolutionModalTitle").text(motivationals.get_random());
+  $("#resolutionModal").addClass("error");
   $("#resolutionModal").modal("show");
 }
 
+var celebrations = Array("Nice done!", "Good job!", "Outstanding!", "Spectacular!", "Great!", "Awesome!");
 function show_positive_resolution_dialog() {
 
   map.zoom_out_thread.cancel();
@@ -471,6 +514,7 @@ function show_positive_resolution_dialog() {
   $("#resolution-modal-outcome").text("+{0} Points".format(current_user.current_round_points));
   $("#resolutionModalTitle").text(celebrations.get_random());
   $("#airport-answer-form").toggleClass("has-success");
+  $("#resolutionModal").addClass("success");
   $("#resolutionModal").modal("show");
 
 }

@@ -128,6 +128,7 @@ header.topbar .glyphicon:hover, header.topbar .glyphicon:focus {
   display: none;
 }
 
+
 .has-success #airport_answer {
 
     -webkit-animation-name: correct-answer-animation;
@@ -236,4 +237,84 @@ header.topbar .glyphicon:hover, header.topbar .glyphicon:focus {
     0% { color: #D18281; }
     50% { color: #fff; }
     100% { color: #D18281; }
+}
+
+
+
+.success .modal-vertical-centered .modal-content { 
+  border-width: 10px;
+  /*border-color: #78A179;*/
+  
+  -webkit-animation-name: correct-answer-resolution-modal-animation;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+
+  -moz-animation-name: correct-answer-resolution-modal-animation;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+
+  animation-name: correct-answer-resolution-modal-animation;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@-moz-keyframes correct-answer-resolution-modal-animation {  
+    0% { border-color: #78A179; }
+    /*50% { border-color: transparent; }*/
+    50% { border-color: #fff; }
+    100% { border-color: #78A179; }
+}
+
+@-webkit-keyframes correct-answer-resolution-modal-animation {  
+    0% { border-color: #78A179; }
+    50% { border-color: #fff; }
+    100% { border-color: #78A179; }
+}
+
+@keyframes correct-answer-resolution-modal-animation {  
+    0% { border-color: #78A179; }
+    50% { border-color: #fff; }
+    100% { border-color: #78A179; }
+}
+
+.error .modal-vertical-centered .modal-content {
+  border-width: 10px;
+  /*border-color: #D18281;*/
+
+  -webkit-animation-name: incorrect-answer-resolution-modal-animation;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+
+  -moz-animation-name: incorrect-answer-resolution-modal-animation;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+
+  animation-name: incorrect-answer-resolution-modal-animation;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@-moz-keyframes incorrect-answer-resolution-modal-animation {  
+    0% { border-color: #D18281; }
+    /*50% { border-color: transparent; }*/
+    50% { border-color: #fff; }
+    100% { border-color: #D18281; }
+}
+
+@-webkit-keyframes incorrect-answer-resolution-modal-animation {  
+    0% { border-color: #D18281; }
+    50% { border-color: #fff; }
+    100% { border-color: #D18281; }
+}
+
+@keyframes incorrect-answer-resolution-modal-animation {  
+    0% { border-color: #D18281; }
+    50% { border-color: #fff; }
+    100% { border-color: #D18281; }
 }

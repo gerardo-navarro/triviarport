@@ -1,0 +1,320 @@
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+header.topbar {
+  background-color: rgba(40, 40, 40, 0.8);
+  color:#ffffff;
+  position: fixed;
+  width: 100%;
+  height: 70px;
+  z-index: 1041; /* When a modal appears, bootstrap will include a backdrop panel that covers anything on the screen and then include the modal view. This backdrop panel will be placed on z-index = 1040. We don't want the backdrop to cover the top and bottom bar. So set the z-index for the bars at 1041 */
+  top: 0;
+  left: 0;
+  padding-top: 10px;
+
+  font-size: 24pt;
+  letter-spacing: 5px;
+}
+
+header.topbar .my-brand {
+  color: #ffffff;
+  font-size: 24pt;
+  letter-spacing: 5px;
+  font-weight: bold;
+}
+
+header.topbar .my-brand:active, header.topbar .my-brand:hover, header.topbar .my-brand:focus {
+  color: #ddd;
+  text-decoration: none;
+}
+
+div.bottombar {
+  background-color: rgb(40, 40, 40);
+  color:#ffffff;
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  z-index: 1041; /* When a modal appears, bootstrap will include a backdrop panel that covers anything on the screen and then include the modal view. This backdrop panel will be placed on z-index = 1040. We don't want the backdrop to cover the top and bottom bar. So set the z-index for the bars at 1041 */
+  bottom: 0;
+  left: 0;
+  padding-top: 15px;
+
+  font-size: 24pt;
+  letter-spacing: 5px;
+}
+
+header.topbar .glyphicon {
+  color: #fff;
+  margin-top: 7px;
+  cursor: pointer;
+}
+
+header.topbar .glyphicon:hover, header.topbar .glyphicon:focus {
+  color: #ddd;
+}
+
+.modal .modal-body {
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.modal-vertical-centered {
+    top: 90px !important;
+}
+
+#airport_answer {
+  font-size: 24px;
+  padding: 0px 10px;
+  color: #000000;
+  letter-spacing: 2px;
+}
+
+.my-modal-title {
+  letter-spacing: 2px;
+}
+
+
+.my-modal-content h4 {
+  line-height: 30px;
+  letter-spacing: 2px;
+}
+
+.my-modal-content .airport-image {
+  float: right;
+  margin-left:10px;
+  height: 150px;
+  width: 225px;
+}
+
+.score-board {
+  font-size: 24px;
+  letter-spacing: 5px;
+  /*text-align: center;*/
+  vertical-align: middle;
+}
+
+.score-label {
+  margin-top: -10px;
+  font-size: 14px;
+}
+
+#error-icon, #success-icon {
+  display: none;
+}
+
+.has-error #error-icon, .has-success #success-icon {
+  display: block;
+}
+
+.has-success #airport_answer {
+  background-color: #78A179; /* It is 30% lighter than the border-color set by Bootstrap on the success input (#2B542C) */
+}
+.has-error #airport_answer {
+  background-color: #D18281; /* It is 30% lighter than the border-color set by Bootstrap on the success input (#843534) */
+}
+
+/*.score-board span[id^="score-life"] .losing {*/
+/*.score-board .losing {
+  color: #D18281 !important;
+}*/
+
+/*.score-board span[id^="score-life"] .lost {*/
+.score-board .lost {
+  display: none;
+}
+
+
+.has-success #airport_answer {
+
+    -webkit-animation-name: correct-answer-animation;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: correct-answer-animation;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: correct-answer-animation;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-moz-keyframes correct-answer-animation {  
+    0% { background-color: #78A179; }
+    50% { background-color: #fff; }
+    100% { background-color: #78A179; }
+}
+
+@-webkit-keyframes correct-answer-animation {  
+    0% { background-color: #78A179; }
+    50% { background-color: #fff; }
+    100% { background-color: #78A179; }
+}
+
+@keyframes correct-answer-animation {  
+    0% { background-color: #78A179; }
+    50% { background-color: #fff; }
+    100% { background-color: #78A179; }
+}
+
+
+.has-error #airport_answer {
+
+    -webkit-animation-name: incorrect-answer-animation;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: correct-answer-animation;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: correct-answer-animation;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-moz-keyframes incorrect-answer-animation {  
+    0% { background-color: #D18281; }
+    50% { background-color: #fff; }
+    100% { background-color: #D18281; }
+}
+
+@-webkit-keyframes incorrect-answer-animation {  
+    0% { background-color: #D18281; }
+    50% { background-color: #fff; }
+    100% { background-color: #D18281; }
+}
+
+@keyframes incorrect-answer-animation {  
+    0% { background-color: #D18281; }
+    50% { background-color: #fff; }
+    100% { background-color: #D18281; }
+}
+
+.score-board .losing {
+  color: #D18281;
+
+  -webkit-animation-name: losing-life-animation;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+
+  -moz-animation-name: losing-life-animation;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+
+  animation-name: losing-life-animation;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@-moz-keyframes losing-life-animation {  
+    0% { color: #D18281; }
+    50% { color: #fff; }
+    100% { color: #D18281; }
+}
+
+@-webkit-keyframes losing-life-animation {  
+    0% { color: #D18281; }
+    50% { color: #fff; }
+    100% { color: #D18281; }
+}
+
+@keyframes losing-life-animation {  
+    0% { color: #D18281; }
+    50% { color: #fff; }
+    100% { color: #D18281; }
+}
+
+
+
+.success .modal-vertical-centered .modal-content { 
+  border-width: 10px;
+  /*border-color: #78A179;*/
+  
+  -webkit-animation-name: correct-answer-resolution-modal-animation;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+
+  -moz-animation-name: correct-answer-resolution-modal-animation;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+
+  animation-name: correct-answer-resolution-modal-animation;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@-moz-keyframes correct-answer-resolution-modal-animation {  
+    0% { border-color: #78A179; }
+    /*50% { border-color: transparent; }*/
+    50% { border-color: #fff; }
+    100% { border-color: #78A179; }
+}
+
+@-webkit-keyframes correct-answer-resolution-modal-animation {  
+    0% { border-color: #78A179; }
+    50% { border-color: #fff; }
+    100% { border-color: #78A179; }
+}
+
+@keyframes correct-answer-resolution-modal-animation {  
+    0% { border-color: #78A179; }
+    50% { border-color: #fff; }
+    100% { border-color: #78A179; }
+}
+
+.error .modal-vertical-centered .modal-content {
+  border-width: 10px;
+  /*border-color: #D18281;*/
+
+  -webkit-animation-name: incorrect-answer-resolution-modal-animation;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+
+  -moz-animation-name: incorrect-answer-resolution-modal-animation;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+
+  animation-name: incorrect-answer-resolution-modal-animation;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@-moz-keyframes incorrect-answer-resolution-modal-animation {  
+    0% { border-color: #D18281; }
+    /*50% { border-color: transparent; }*/
+    50% { border-color: #fff; }
+    100% { border-color: #D18281; }
+}
+
+@-webkit-keyframes incorrect-answer-resolution-modal-animation {  
+    0% { border-color: #D18281; }
+    50% { border-color: #fff; }
+    100% { border-color: #D18281; }
+}
+
+@keyframes incorrect-answer-resolution-modal-animation {  
+    0% { border-color: #D18281; }
+    50% { border-color: #fff; }
+    100% { border-color: #D18281; }
+}

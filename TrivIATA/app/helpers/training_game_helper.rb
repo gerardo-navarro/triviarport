@@ -1,0 +1,2 @@
+module TrainingGameHelper
+end
